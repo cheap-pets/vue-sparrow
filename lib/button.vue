@@ -1,5 +1,5 @@
 <template>
-  <button :class="btnClass" :style="btnStyle" @click="tap" @tap="tap" :disabled="isDisabled" :toggled="isToggled">
+  <button :class="btnClass" :style="btnStyle" @click="onClick" :disabled="isDisabled" :toggled="isToggled">
     <slot>
       <i :class="btnIconClass" v-if="btnIconClass && btnText"></i>
       {{ btnText }}
@@ -47,7 +47,7 @@
       }
     },
     methods: {
-      tap () {
+      onClick () {
         this.$emit('click')
       }
     }

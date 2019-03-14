@@ -15,6 +15,6 @@
   "dependencies": {
     "lodash.isstring": "^4.0.1",
     "sparrow-css": "^0.2.4",
-    "sparrow-popup": "^2.0.7"
+    "sparrow-popup": "^2.0.9"
   }
 }

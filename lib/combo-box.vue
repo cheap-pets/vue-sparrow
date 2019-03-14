@@ -12,6 +12,7 @@
 </template>
 
 <script>
+  import { show, hide } from 'sparrow-popup'
   import isString from 'lodash.isstring'
   import ListItem from './list-item.vue'
 
@@ -76,6 +77,12 @@
       },
       input (event) {
         this.$emit('input', event)
+      },
+      expand () {
+        show(this.$el)
+      },
+      collapse () {
+        hide(this.$el)
       }
     },
     watch: {
