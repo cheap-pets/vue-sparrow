@@ -22,7 +22,9 @@ class Dialog {
     if (footComponent) components['slot-dialog-foot'] = footComponent
 
     delete options.data
+    delete options.headComponent
     delete options.bodyComponent
+    delete options.footComponent
     delete options.components
 
     return new Vue({
@@ -31,7 +33,9 @@ class Dialog {
       components,
       computed: {
         maskStyle () {
-          return { zIndex: this.zIndex }
+          const style = {}
+          if (this.zIndex) style.zIndex = this.zIndex
+          return style
         },
         dialogStyle () {
           const style = {}
