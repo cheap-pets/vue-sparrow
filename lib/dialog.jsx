@@ -60,9 +60,9 @@ class Dialog {
       },
       methods: {
         show (options = {}) {
-          ['title', 'buttons', 'primaryButton', 'danger', 'params'].forEach(prop => {
-            if (options[prop] !== undefined) this[prop] = options[prop]
-          })
+          for (let key of Object.keys(options)) {
+            this[key] = options[key]
+          }
           if (!this.$el && !this.$parent) {
             this.$mount()
             document.body.appendChild(this.$el)
