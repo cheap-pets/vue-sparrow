@@ -9,6 +9,9 @@ class Dialog {
       buttons: undefined,
       primaryButton: undefined,
       params: undefined,
+      zIndex: undefined,
+      width: undefined,
+      height: undefined,
       ...options.data
     }
     ;['title', 'buttons', 'primaryButton', 'danger', 'params', 'zIndex', 'width', 'height'].forEach(prop => {
@@ -21,16 +24,13 @@ class Dialog {
     if (bodyComponent) components['slot-dialog-body'] = bodyComponent
     if (footComponent) components['slot-dialog-foot'] = footComponent
 
-    delete options.data
     delete options.headComponent
     delete options.bodyComponent
     delete options.footComponent
     delete options.components
 
-    return new Vue({
-      ...options,
+    const defaultMixin = {
       data,
-      components,
       computed: {
         maskStyle () {
           const style = {}
@@ -145,6 +145,12 @@ class Dialog {
           </div>
         )
       }
+    }
+
+    return new Vue({
+      mixins: [ defaultMixin ],
+      components,
+      ...options
     })
   }
 }
