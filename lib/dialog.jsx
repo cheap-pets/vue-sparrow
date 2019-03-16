@@ -15,24 +15,29 @@ class Dialog {
       if (options[prop] !== undefined) data[prop] = options[prop]
       delete options[prop]
     })
-    const { components, bodyComponent } = options
+    const { components = {}, dialogComponent, headComponent, bodyComponent, footComponent } = options
+    if (dialogComponent) components['slot-dialog'] = dialogComponent
+    if (headComponent) components['slot-dialog-head'] = headComponent
+    if (bodyComponent) components['slot-dialog-body'] = bodyComponent
+    if (footComponent) components['slot-dialog-foot'] = footComponent
+
     delete options.data
     delete options.bodyComponent
     delete options.components
+
     return new Vue({
       ...options,
       data,
-      components: {
-        ...components,
-        'slot-dialog-body': bodyComponent
-      },
+      components,
       computed: {
         maskStyle () {
           return { zIndex: this.zIndex }
         },
         dialogStyle () {
-          const { width, height } = this
-          return { width, height }
+          const style = {}
+          if (this.width) style.width = this.width
+          if (this.height) style.height = this.height
+          return style
         },
         btns () {
           const { buttons, primaryButton, danger } = this
@@ -92,27 +97,47 @@ class Dialog {
       render (h) {
         return (
           <div class="modal-mask" style={ this.maskStyle } onPopupopen={ this.onShow } onPopupclose={ this.onHide }>
-            <div class={['dialog', this.danger ? 'danger' : '']} style={ this.dialogStyle }>
-              <div class="dialog-header" dlg-title={ this.title }>
-                <a toggle-type="close" popup-action="close"></a>
-              </div>
-              <slot-dialog-body class="dialog-body" params={this.params} onCustomevent={ this.emitCustomEvent }></slot-dialog-body>
-              {
-                this.btns
-                  ? (
-                    <div class="dialog-footer">
-                      {
-                        this.btns.map(btn => (
-                          <button class={['btn', btn.className]}
-                            domPropsInnerHTML={ btn.caption } onClick={ () => { this.onButtonClick(btn) }}>
-                          </button>
-                        ))
-                      }
-                    </div>
-                  )
-                  : ''
-              }
-            </div>
+            {
+              this.$options.components['slot-dialog']
+                ? <slot-dialog class={['dialog', this.danger ? 'danger' : '']} style={ this.dialogStyle }></slot-dialog>
+                : (
+                  <div class={['dialog', this.danger ? 'danger' : '']} style={ this.dialogStyle }>
+                    {
+                      this.$options.components['slot-dialog-head']
+                        ? <slot-dialog-head class="dialog-header" dlg-title={ this.title }></slot-dialog-head>
+                        : (
+                          <div class="dialog-header" dlg-title={ this.title }>
+                            <a toggle-type="close" popup-action="close"></a>
+                          </div>
+                        )
+                    }
+                    {
+                      this.$options.components['slot-dialog-body']
+                        ? <slot-dialog-body class="dialog-body" params={ this.params } onCustomevent={ this.emitCustomEvent }></slot-dialog-body>
+                        : <div class="dialog-body"></div>
+                    }
+                    {
+                      this.$options.components['slot-dialog-foot']
+                        ? <slot-dialog-foot class="dialog-footer" btns={ this.btns} ></slot-dialog-foot>
+                        : (
+                          this.btns
+                            ? (
+                              <div class="dialog-footer">
+                                {
+                                  this.btns.map(btn => (
+                                    <button class={['btn', btn.className]}
+                                      domPropsInnerHTML={ btn.caption } onClick={ () => { this.onButtonClick(btn) }}>
+                                    </button>
+                                  ))
+                                }
+                              </div>
+                            )
+                            : ''
+                        )
+                    }
+                  </div>
+                )
+            }
           </div>
         )
       }
