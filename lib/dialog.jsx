@@ -1,4 +1,12 @@
 import { show, hide } from 'sparrow-popup'
+import emit from './emit-event'
+
+function broadcast (children, eventName) {
+  ['dialogComponent', 'headComponent', 'bodyComponent', 'footComponent'].forEach(item => {
+    const el = Object(children[item]).$el
+    if (el) emit(el, eventName)
+  })
+}
 
 class Dialog {
   constructor () {
@@ -75,6 +83,7 @@ class Dialog {
         },
         hide (event) {
           this.$emit('hide')
+          broadcast(this.$refs, 'dialoghide')
           hide(this.$el, true)
         },
         onButtonClick (btn) {
@@ -85,6 +94,7 @@ class Dialog {
         },
         onShow () {
           this.$emit('show')
+          broadcast(this.$refs, 'dialogshow')
         },
         onHide (event) {
           event.preventDefault()
@@ -103,12 +113,12 @@ class Dialog {
           <div class="modal-mask" style={ this.maskStyle } onPopupopen={ this.onShow } onPopupclose={ this.onHide }>
             {
               this.$options.components['slot-dialog']
-                ? <slot-dialog class={['dialog', this.danger ? 'danger' : '']} style={ this.dialogStyle }></slot-dialog>
+                ? <slot-dialog class={['dialog', this.danger ? 'danger' : '']} style={ this.dialogStyle } ref="dialogComponent"></slot-dialog>
                 : (
                   <div class={['dialog', this.danger ? 'danger' : '']} style={ this.dialogStyle }>
                     {
                       this.$options.components['slot-dialog-head']
-                        ? <slot-dialog-head class="dialog-header" dlg-title={ this.title }></slot-dialog-head>
+                        ? <slot-dialog-head class="dialog-header" dlg-title={ this.title } ref="headComponent"></slot-dialog-head>
                         : (
                           <div class="dialog-header" dlg-title={ this.title }>
                             <a toggle-type="close" popup-action="close"></a>
@@ -117,12 +127,12 @@ class Dialog {
                     }
                     {
                       this.$options.components['slot-dialog-body']
-                        ? <slot-dialog-body class="dialog-body" params={ this.params } onCustomevent={ this.emitCustomEvent }></slot-dialog-body>
+                        ? <slot-dialog-body class="dialog-body" params={ this.params } onCustomevent={ this.emitCustomEvent } ref="bodyComponent"></slot-dialog-body>
                         : <div class="dialog-body"></div>
                     }
                     {
                       this.$options.components['slot-dialog-foot']
-                        ? <slot-dialog-foot class="dialog-footer" btns={ this.btns} ></slot-dialog-foot>
+                        ? <slot-dialog-foot class="dialog-footer" btns={ this.btns} ref="footComponent"></slot-dialog-foot>
                         : (
                           this.btns
                             ? (
