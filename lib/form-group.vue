@@ -9,6 +9,7 @@
 
 <script>
   export default {
+    name: 'SuFormGroup',
     props: [ 'labelWidth', 'important', 'label', 'value', 'placeholder' ],
     computed: {
       labelStyle () {

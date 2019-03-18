@@ -11,6 +11,7 @@
   import isString from 'lodash.isstring'
 
   export default {
+    name: 'SuButton',
     props: ['option', 'disabled', 'buttonClass', 'width', 'text', 'iconClass', 'primary', 'secondary', 'danger', 'toggled'],
     computed: {
       btnOption () {

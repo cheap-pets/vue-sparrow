@@ -1,82 +1,87 @@
 <template>
-  <div class="input-box dropdown-group" :readonly="readonly" :style="comboStyle" sparrow-popup :popup-action="popupAction">
-    <input type="text" :placeholder="placeholder" :value="val" :width="width" :readonly="readonly || isDropdownList" @input="input">
+  <div class="input-box dropdown-group" :readonly="readonly" sparrow-popup :popup-action="popupAction" @optionclick.stop="onOptionClick">
+    <input type="text" :placeholder="placeholder" v-model="inputValue" :readonly="readonly || isDropdownList">
     <a toggle-type="expand" popup-action="toggle"></a>
-    <slot>
-      <div class="dropdown list-group" v-if="!readonly && items.length">
-        <su-list-item v-for="(item,index) in items" :key="index" :popupAction="multiple ? 'none' : 'close'"
-          :item="item" :multiple="multiple" :iconField="iconField" :textField="textField" :checkField="checkField" @clickitem="clickItem" />
-      </div>
-    </slot>
+    <div class="dropdown list-group" v-if="!readonly && options && options.length">
+      <slot>
+        <su-option v-for="(option, index) in options" :key="option.value" :option="option"></su-option>
+      </slot>
+    </div>
   </div>
 </template>
 
 <script>
   import { show, hide } from 'sparrow-popup'
-  import isString from 'lodash.isstring'
-  import ListItem from './list-item.vue'
+  import OptionItem from './combo-box-option.vue'
 
   export default {
-    props: [ 'value', 'width', 'iconClass', 'readonly', 'placeholder', 'dropdownStyle', 'multiple', 'options', 'textField', 'checkField', 'iconField' ],
-    data () {
+    name: 'SuComboBox',
+    props: [ 'displayValue', 'value', 'readonly', 'placeholder', 'dropdownStyle', 'multiple', 'options', 'fields' ],
+    model: {
+      prop: 'value',
+      event: 'change'
+    },
+    provide () {
       return {
-        val: '',
-        items: []
+        comboBox: this
       }
     },
     computed: {
-      comboStyle () {
-        return {
-          width: this.width ? (this.width + (!isNaN(this.width) ? 'px' : '')) : undefined
-        }
-      },
       isDropdownList () {
-        return this.dropdownStyle && this.dropdownStyle.toLowerCase() === 'dropdownlist'
+        return !this.dropdownStyle || this.dropdownStyle.toLowerCase() === 'dropdownlist'
       },
       popupAction () {
         return (this.readonly || !this.isDropdownList) ? 'none' : 'toggle'
+      },
+      inputValue: {
+        get () {
+          const { label: labelField = 'label', value: valueField = 'value' } = Object(this.fields)
+          return this.displayValue === undefined
+            ? (
+              this.value
+                ? (
+                  this.isDropdownList
+                    ? (
+                      this.multiple
+                        ? (
+                          this.options
+                            ? (
+                              this.value
+                                .map(v => Object(this.options.find(option => option[valueField] === v))[labelField] || '')
+                                .join(',')
+                            )
+                            : ''
+                        )
+                        : Object(this.options.find(option => option[valueField] === this.value))[labelField] || ''
+                    )
+                    : (Array.isArray(this.value) ? this.value.join(',') : this.value)
+                )
+                : ''
+            )
+            : this.displayValue
+        },
+        set (v) {
+          this.$emit('change', v)
+        }
       }
     },
     components: {
-      'su-list-item': ListItem
+      'su-option': OptionItem
     },
     methods: {
-      refreshItems (val) {
-        if (Array.isArray(val)) {
-          this.items = val.map(item => {
-            return Object.assign(
-              { _ref: item },
-              this.multiple ? { [this.checkField || 'checked']: false } : {},
-              isString(item) ? { text: item } : item)
-          })
-        }
-      },
-      getItemText (item) {
-        return isString(item)
-          ? item
-          : (this.textField ? item[this.textField] : item['text'] || item['name']) || ''
-      },
-      clickItem (item) {
-        const p = this.checkField || 'checked'
+      onOptionClick (event) {
+        const option = event._su_event_data
+        this.$emit('optionclick', option)
+        const value = option[Object(this.fields).value || 'value']
         if (this.multiple) {
-          item[p] = !item[p]
-          const ret = []
-          this.items.forEach(loopItem => {
-            if (loopItem[p]) ret.push(loopItem._ref)
-          })
-          this.val = ret.map(this.getItemText).join(',')
-          this.$emit('select', ret)
+          const values = [].concat(this.value)
+          const idx = values.findIndex(v => v.toString() === value.toString())
+          if (idx > -1) values.splice(idx, 1)
+          else values.push(value)
+          this.$emit('change', values)
         } else {
-          this.items.forEach(loopItem => {
-            loopItem[p] = item === loopItem
-          })
-          this.val = this.getItemText(item)
-          this.$emit('select', item)
+          this.$emit('change', value)
         }
-        this.$emit('clickitem', item._ref)
-      },
-      input (event) {
-        this.$emit('input', event)
       },
       expand () {
         show(this.$el)
@@ -84,18 +89,6 @@
       collapse () {
         hide(this.$el)
       }
-    },
-    watch: {
-      options (val) {
-        this.refreshItems(val)
-      },
-      value (val) {
-        this.val = val
-      }
-    },
-    mounted () {
-      this.val = this.value
-      this.refreshItems(this.options)
     }
   }
 </script>

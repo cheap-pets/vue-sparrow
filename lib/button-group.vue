@@ -10,6 +10,7 @@
   import isString from 'lodash.isstring'
 
   export default {
+    name: 'SuButtonGroup',
     props: ['disabled', 'groupClass', 'buttonWidth', 'buttons', 'toggleGroup'],
     data () {
       return {

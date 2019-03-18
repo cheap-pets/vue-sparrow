@@ -7,6 +7,7 @@
 
 <script>
   export default {
+    name: 'SuSearchBox',
     props: [ 'placeholder', 'width' ],
     computed: {
       boxStyle () {

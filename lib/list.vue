@@ -12,6 +12,7 @@
   import ListItem from './list-item.vue'
 
   export default {
+    name: 'SuList',
     props: [ 'items', 'multiple', 'textField', 'checkField', 'iconField', 'selectable' ],
     data () {
       return {
