@@ -11,6 +11,7 @@
 import emit from './emit-event'
 
 export default {
+  name: 'SuOption',
   props: [ 'option' ],
   inject: [ 'comboBox' ],
   computed: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="combo-box" :class="boxStyle">
+  <div class="input-box" :class="boxStyle">
     <span class="icon icon-search"></span>
     <input type="text" :placeholder="placeholder" @input="inputUpdate" @focus="select">
   </div>

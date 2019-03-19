@@ -4,9 +4,9 @@
     <input type="text" :placeholder="placeholder" v-model="inputValue" :readonly="readonly || isDropdownList">
     <a toggle-type="clear" popup-action="close" v-if="buttons" @click="clear"></a>
     <a toggle-type="expand" popup-action="toggle"></a>
-    <div class="dropdown list-group" v-if="!readonly && options && options.length">
+    <div class="dropdown list-group" v-if="!readonly">
       <slot>
-        <su-option v-for="(option, index) in options" :key="option.value" :option="option"></su-option>
+        <su-option v-for="(option, index) in options" :key="option.value" :option="option" v-if="options && options.length"></su-option>
       </slot>
     </div>
   </div>
@@ -14,7 +14,6 @@
 
 <script>
   import { show, hide } from 'sparrow-popup'
-  import OptionItem from './combo-box-option.vue'
 
   export default {
     name: 'SuComboBox',
@@ -57,7 +56,11 @@
                             )
                             : ''
                         )
-                        : this.getOptionLabel(this.options.find(option => option[valueField] === this.value))
+                        : (
+                          this.options
+                            ? this.getOptionLabel(this.options.find(option => option[valueField] === this.value))
+                            : ''
+                        )
                     )
                     : (Array.isArray(this.value) ? this.value.join(',') : this.value)
                 )
@@ -69,9 +72,6 @@
           this.$emit('change', v)
         }
       }
-    },
-    components: {
-      'su-option': OptionItem
     },
     methods: {
       getOptionLabel (option) {
