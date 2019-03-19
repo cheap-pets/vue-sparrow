@@ -35,7 +35,7 @@
       },
       inputValue: {
         get () {
-          const { label: labelField = 'label', value: valueField = 'value' } = Object(this.fields)
+          const { value: valueField = 'value' } = Object(this.fields)
           return this.displayValue === undefined
             ? (
               this.value
@@ -47,12 +47,12 @@
                           this.options
                             ? (
                               this.value
-                                .map(v => Object(this.options.find(option => option[valueField] === v))[labelField] || '')
+                                .map(v => this.getOptionLabel(this.options.find(option => option[valueField] === v)))
                                 .join(',')
                             )
                             : ''
                         )
-                        : Object(this.options.find(option => option[valueField] === this.value))[labelField] || ''
+                        : this.getOptionLabel(this.options.find(option => option[valueField] === this.value))
                     )
                     : (Array.isArray(this.value) ? this.value.join(',') : this.value)
                 )
@@ -69,6 +69,10 @@
       'su-option': OptionItem
     },
     methods: {
+      getOptionLabel (option) {
+        const { label: labelField = 'label', value: valueField = 'value' } = Object(this.fields)
+        return option ? option[labelField] || option[valueField] : ''
+      },
       onOptionClick (event) {
         const option = event._su_event_data
         this.$emit('optionclick', option)
