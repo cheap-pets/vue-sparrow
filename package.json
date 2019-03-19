@@ -1,6 +1,6 @@
 {
   "name": "vue-sparrow-ui",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "description": "A Vue Components Lib",
   "module": "lib/index.js",
   "author": "scrollbar-ww",
@@ -13,8 +13,10 @@
     "builddev": "iwoppack --w --env=development"
   },
   "dependencies": {
-    "lodash.isstring": "^4.0.1",
-    "sparrow-css": "^0.2.6",
-    "sparrow-popup": "^2.0.9"
+    "lodash.isstring": "^4.0.1"
+  },
+  "peerDependencies": {
+    "sparrow-popup": ">=2.0.0",
+    "sparrow-css": ">=0.2.0"
   }
 }
