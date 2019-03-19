@@ -26,6 +26,7 @@
         if (this.primary || primary) v.push('btn-primary')
         else if (this.secondary || secondary) v.push('btn-secondary')
         else if (this.danger || danger) v.push('btn-danger')
+        else v.push('btn-primary', 'btn-outline')
         return v
       },
       btnStyle () {

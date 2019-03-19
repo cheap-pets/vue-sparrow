@@ -60,7 +60,7 @@ class Dialog {
               const caption = item.trim()
               return {
                 caption,
-                className: primaryBtn === caption ? primaryCls : 'btn-grey btn-outline'
+                className: primaryBtn === caption ? primaryCls : 'btn-outline'
               }
             })
             : null
@@ -113,12 +113,12 @@ class Dialog {
           <div class="modal-mask" style={ this.maskStyle } onPopupopen={ this.onShow } onPopupclose={ this.onHide }>
             {
               this.$options.components['slot-dialog']
-                ? <slot-dialog class={['dialog', this.danger ? 'danger' : '']} style={ this.dialogStyle } ref="dialogComponent"></slot-dialog>
+                ? <slot-dialog class={['dialog', this.danger ? 'danger' : '']} style={ this.dialogStyle } params={ this.params } ref="dialogComponent"></slot-dialog>
                 : (
                   <div class={['dialog', this.danger ? 'danger' : '']} style={ this.dialogStyle }>
                     {
                       this.$options.components['slot-dialog-head']
-                        ? <slot-dialog-head class="dialog-header" dlg-title={ this.title } ref="headComponent"></slot-dialog-head>
+                        ? <slot-dialog-head class="dialog-header" dlg-title={ this.title } params={ this.params } ref="headComponent"></slot-dialog-head>
                         : (
                           <div class="dialog-header" dlg-title={ this.title }>
                             <a toggle-type="close" popup-action="close"></a>
@@ -127,12 +127,12 @@ class Dialog {
                     }
                     {
                       this.$options.components['slot-dialog-body']
-                        ? <slot-dialog-body class="dialog-body" params={ this.params } onCustomevent={ this.emitCustomEvent } ref="bodyComponent"></slot-dialog-body>
+                        ? <slot-dialog-body class="dialog-body" onCustomevent={ this.emitCustomEvent } params={ this.params } ref="bodyComponent"></slot-dialog-body>
                         : <div class="dialog-body"></div>
                     }
                     {
                       this.$options.components['slot-dialog-foot']
-                        ? <slot-dialog-foot class="dialog-footer" btns={ this.btns} ref="footComponent"></slot-dialog-foot>
+                        ? <slot-dialog-foot class="dialog-footer" btns={ this.btns} params={ this.params } ref="footComponent"></slot-dialog-foot>
                         : (
                           this.btns
                             ? (
