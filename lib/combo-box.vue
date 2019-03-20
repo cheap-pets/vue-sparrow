@@ -79,9 +79,7 @@
         return option ? option[labelField] || option[valueField] : ''
       },
       onOptionClick (event) {
-        const option = event._su_event_data
-        this.$emit('optionclick', option)
-        const value = option[Object(this.fields).value || 'value']
+        const value = event._su_event_data
         if (this.multiple) {
           const values = [].concat(this.value)
           const idx = values.findIndex(v => v.toString() === value.toString())

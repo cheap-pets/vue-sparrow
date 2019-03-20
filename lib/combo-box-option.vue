@@ -1,10 +1,7 @@
 <template>
-  <a class="list-group-item" @click="onClick(option)" :popup-action="popupAction" :toggle-type="toggleType" :checked="checked" :disabled="disabled">
-    <slot>
-      <span v-if="icon" :class="icon"></span>
-      <span v-if="label">{{ label }}</span>
-    </slot>
-  </a>
+  <su-list-item :item="option" :fields="fields" :icon="icon" :label="label" :checked="checked"
+    :disabled="disabled" :popupAction="popupActionValue" @itemclick="onOptionClick">
+  </su-list-item>
 </template>
 
 <script>
@@ -12,40 +9,31 @@ import emit from './emit-event'
 
 export default {
   name: 'SuOption',
-  props: [ 'option' ],
+  props: [ 'option', 'value', 'icon', 'label', 'active', 'disabled', 'popupAction' ],
   inject: [ 'comboBox' ],
   computed: {
     fields () {
-      return Object(this.comboBox.fields)
+      return this.comboBox.fields
     },
-    disabled () {
-      return this.option[this.fields.disabled || 'disabled']
-    },
-    value () {
-      return this.option[this.fields.value || 'value']
-    },
-    label () {
-      return this.option[this.fields.label || 'label']
-    },
-    icon () {
-      return this.option[this.fields.icon || 'icon']
-    },
-    toggleType () {
-      return this.comboBox.multiple ? 'check' : undefined
+    optionValue () {
+      return this.value || Object(this.option)[Object(this.fields).value || 'value']
     },
     checked () {
       const { multiple, value } = this.comboBox
       return multiple && value
-        ? value.findIndex(v => this.value.toString() === v.toString()) > -1
+        ? value.findIndex(v => this.optionValue.toString() === v.toString()) > -1
         : undefined
     },
-    popupAction () {
-      return this.comboBox.multiple ? 'none' : 'close'
+    popupActionValue () {
+      return this.popupAction || (this.comboBox.multiple ? 'none' : 'close')
     }
   },
   methods: {
-    onClick (option) {
-      if (!option.disabled) emit(this.$el, 'optionclick', { canBubble: true, data: option })
+    getFieldValue (field) {
+      return this[field] || Object(this.item)[Object(this.fields)[field] || field]
+    },
+    onOptionClick (item) {
+      emit(this.$el, 'optionclick', { canBubble: true, data: this.optionValue })
     }
   }
 }

@@ -1,35 +1,40 @@
 <template>
-  <a class="list-group-item" @click="clickItem(item)" :class="{ active: active }" :popup-action="popupAction" :toggle-type="toggleType" :checked="checked" :disabled="item.disabled">
-    <slot :item="item">
-      <span v-if="icon" :class="icon"></span>
-      <span v-if="text">{{ text }}</span>
+  <a class="list-group-item" :class="{ active: active }" :checked="checkedValue"
+    @click="onItemClick" :toggle-type="toggleType" :popup-action="popupAction">
+    <slot>
+      <span v-if="iconValue" :class="iconValue"></span>
+      <span v-if="labelValue">{{ labelValue }}</span>
     </slot>
   </a>
 </template>
 
 <script>
 export default {
-  props: [ 'textField', 'iconField', 'checkField', 'item', 'multiple', 'popupAction' ],
+  name: 'SuListItem',
+  props: [ 'fields', 'item', 'icon', 'label', 'checked', 'active', 'disabled', 'popupAction' ],
   computed: {
-    active () {
-      return this.item.checked
+    iconValue () {
+      return this.getFieldValue('icon')
     },
-    text () {
-      return (this.textField ? this.item[this.textField] : this.item['text'] || this.item['name']) || ''
+    labelValue () {
+      return this.getFieldValue('label')
     },
-    icon () {
-      return this.item[this.iconField || 'icon']
+    checkedValue () {
+      return this.getFieldValue('checked')
     },
-    checked () {
-      return this.item[this.checkField || 'checked'] ? 'true' : undefined
+    disabledValue () {
+      return this.getFieldValue('disabled')
     },
     toggleType () {
-      return this.multiple ? 'check' : undefined
+      return this.checkedValue ? 'check' : undefined
     }
   },
   methods: {
-    clickItem (item) {
-      if (!item.disabled) this.$emit('clickitem', item)
+    getFieldValue (field) {
+      return this[field] || Object(this.item)[Object(this.fields)[field] || field]
+    },
+    onItemClick () {
+      if (!this.disabledValue) this.$emit('itemclick', this)
     }
   }
 }
