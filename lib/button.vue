@@ -1,5 +1,5 @@
 <template>
-  <button :class="btnClass" :style="btnStyle" @click="onClick" :disabled="isDisabled" :toggled="isToggled">
+  <button :class="btnClass" :style="btnStyle" @click="onClick" :disabled="isDisabled" :toggled="isToggled" :toggle-type="toggleType">
     <slot>
       <i :class="btnIconClass" v-if="btnIconClass && btnText"></i>
       {{ btnText }}
@@ -12,7 +12,7 @@
 
   export default {
     name: 'SuButton',
-    props: ['option', 'disabled', 'buttonClass', 'width', 'text', 'iconClass', 'primary', 'secondary', 'danger', 'toggled'],
+    props: ['option', 'disabled', 'buttonClass', 'width', 'text', 'iconClass', 'primary', 'secondary', 'danger', 'toggled', 'toggleType'],
     computed: {
       btnOption () {
         return isString(this.option) ? { text: this.option } : this.option || {}
