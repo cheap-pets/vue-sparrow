@@ -1,7 +1,8 @@
 <template>
   <div class="btn-group">
     <slot>
-      <su-button v-if="btns" v-for="(btn,index) in btns" :key="index" :option="btn" @click="tapButton(btn)"></su-button>
+      <su-button v-if="buttons" v-for="(btn,index) in buttons" :key="index" @click="onButtonClick(btn)"
+        :icon="getBtnIcon(btn)" :type="getBtnType(btn)" :disabled="disabled" :toggled="toggled === btn">{{ getBtnText(btn) }}</su-button>
     </slot>
   </div>
 </template>
@@ -11,32 +12,30 @@
 
   export default {
     name: 'SuButtonGroup',
-    props: ['disabled', 'groupClass', 'buttonWidth', 'buttons', 'type'],
-    data () {
-      return {
-        btns: []
-      }
+    props: ['buttons', 'type', 'disabled', 'toggled'],
+    model: {
+      prop: 'toggled',
+      event: 'togglechange'
     },
     methods: {
-      refreshBtns (val) {
-        if (Array.isArray(val)) {
-          this.btns = val.map(item => Object.assign({ toggled: undefined }, isString(item) ? { text: item } : item))
-        }
+      getBtnType (btn) {
+        return Object(btn).type || this.type
       },
-      tapButton (button) {
-        if (this.toggleGroup !== undefined) {
-          this.btns.forEach(btn => { btn.toggled = btn === button ? true : undefined })
+      getBtnIcon (btn) {
+        return Object(btn).icon
+      },
+      getBtnText (btn) {
+        return Object(btn).text || (isString(btn) ? btn : undefined)
+      },
+      getBtnDsiabled (btn) {
+        return Object(btn).disabled || this.disabled
+      },
+      onButtonClick (button) {
+        this.$emit('buttonclick', button)
+        if (this.toggled !== undefined && this.toggled !== button) {
+          this.$emit('togglechange', button)
         }
-        this.$emit('click', button)
       }
-    },
-    watch: {
-      buttons (val) {
-        this.refreshBtns(val)
-      }
-    },
-    mounted () {
-      this.refreshBtns(this.buttons)
     }
   }
 </script>
