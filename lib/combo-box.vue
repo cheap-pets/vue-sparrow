@@ -17,7 +17,7 @@
 
   export default {
     name: 'SuComboBox',
-    props: [ 'displayValue', 'value', 'readonly', 'placeholder', 'dropdownStyle', 'dropdownAlign', 'dropdownWidth', 'multiple', 'options', 'fields' ],
+    props: [ 'displayValue', 'value', 'readonly', 'placeholder', 'clearButton', 'dropdownStyle', 'dropdownAlign', 'dropdownWidth', 'multiple', 'options', 'fields' ],
     model: {
       prop: 'value',
       event: 'change'
@@ -29,7 +29,9 @@
     },
     computed: {
       buttons () {
-        return (this.readonly || !this.inputValue) ? undefined : '2'
+        return (String(this.clearButton).toLowerCase() === 'false' || this.readonly || !this.inputValue)
+          ? undefined
+          : '2'
       },
       isDropdownList () {
         return !this.dropdownStyle || this.dropdownStyle.toLowerCase() === 'dropdownlist'
