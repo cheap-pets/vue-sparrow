@@ -1,14 +1,18 @@
 export default {
   name: 'SuButton',
-  props: [ 'icon', 'type' ],
+  props: [ 'icon', 'buttonType', 'buttonStyle' ],
   computed: {
     btnClass () {
       let cls = ['btn']
       if (!this.$slots.default && this.icon) cls.push(this.icon)
-      if (['primary', 'secondary', 'success', 'danger'].includes(this.type)) {
-        cls.push(`btn-${this.type}`)
-      } else if (!this.type) {
-        cls.push('btn-primary', 'btn-outline')
+      if (['primary', 'secondary', 'success', 'danger'].includes(this.buttonType)) {
+        cls.push(`btn-${this.buttonType}`)
+      } else if (!this.buttonType) {
+        cls.push('btn-primary')
+        if (!this.buttonStyle) cls.push('btn-outline')
+      }
+      if (this.buttonStyle) {
+        cls.push(`btn-${this.buttonStyle}`)
       }
       return cls
     }

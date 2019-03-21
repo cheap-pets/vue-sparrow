@@ -1,7 +1,7 @@
 <template>
   <div class="list-group">
     <slot>
-      <su-list-item v-for="(item, index) in items" :key="index" :item="item"
+      <su-list-item v-for="(item, index) in items" :key="index" :item="item" :fields="fields"
         v-if="items && items.length" @itemclick="onItemClick(item)" :active="item === activeItem">
       </su-list-item>
     </slot>

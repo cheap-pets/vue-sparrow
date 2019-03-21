@@ -2,7 +2,7 @@
   <div class="btn-group">
     <slot>
       <su-button v-if="buttons" v-for="(btn,index) in buttons" :key="index" @click="onButtonClick(btn)"
-        :icon="getBtnIcon(btn)" :type="getBtnType(btn)" :disabled="disabled" :toggled="toggled === btn">{{ getBtnText(btn) }}</su-button>
+        :icon="getBtnIcon(btn)" :buttonType="getBtnType(btn)" :buttonStyle="getBtnStyle(btn)" :disabled="disabled" :toggled="toggled === btn">{{ getBtnText(btn) }}</su-button>
     </slot>
   </div>
 </template>
@@ -12,14 +12,17 @@
 
   export default {
     name: 'SuButtonGroup',
-    props: ['buttons', 'type', 'disabled', 'toggled'],
+    props: ['buttons', 'buttonType', 'buttonStyle', 'disabled', 'toggled'],
     model: {
       prop: 'toggled',
       event: 'togglechange'
     },
     methods: {
       getBtnType (btn) {
-        return Object(btn).type || this.type
+        return Object(btn).buttonType || this.buttonType
+      },
+      getBtnStyle (btn) {
+        return Object(btn).buttonStyle || this.buttonStyle
       },
       getBtnIcon (btn) {
         return Object(btn).icon
