@@ -30,7 +30,11 @@ export default {
             ? <i class={this.icon}></i>
             : undefined
         }
-        { this.$slots.default ? this.$slots.default : undefined }
+        {
+          this.$slots.default
+            ? <span>{ this.$slots.default }</span>
+            : undefined
+        }
       </button>
     )
   }
