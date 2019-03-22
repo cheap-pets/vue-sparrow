@@ -9,33 +9,35 @@
 </template>
 
 <script>
-export default {
-  name: 'SuListItem',
-  props: [ 'fields', 'item', 'icon', 'label', 'checked', 'active', 'disabled', 'popupAction' ],
-  computed: {
-    iconValue () {
-      return this.getFieldValue('icon')
+  import isString from 'lodash.isstring'
+
+  export default {
+    name: 'SuListItem',
+    props: [ 'fields', 'item', 'icon', 'label', 'checked', 'active', 'disabled', 'popupAction' ],
+    computed: {
+      iconValue () {
+        return this.getFieldValue('icon')
+      },
+      labelValue () {
+        return this.getFieldValue('label') || (isString(this.item) ? this.item : undefined)
+      },
+      checkedValue () {
+        return this.getFieldValue('checked')
+      },
+      disabledValue () {
+        return this.getFieldValue('disabled')
+      },
+      toggleType () {
+        return this.checkedValue ? 'check' : undefined
+      }
     },
-    labelValue () {
-      return this.getFieldValue('label')
-    },
-    checkedValue () {
-      return this.getFieldValue('checked')
-    },
-    disabledValue () {
-      return this.getFieldValue('disabled')
-    },
-    toggleType () {
-      return this.checkedValue ? 'check' : undefined
-    }
-  },
-  methods: {
-    getFieldValue (field) {
-      return this[field] || Object(this.item)[Object(this.fields)[field] || field]
-    },
-    onItemClick () {
-      if (!this.disabledValue) this.$emit('itemclick', this)
+    methods: {
+      getFieldValue (field) {
+        return this[field] || Object(this.item)[Object(this.fields)[field] || field]
+      },
+      onItemClick () {
+        if (!this.disabledValue) this.$emit('itemclick')
+      }
     }
   }
-}
 </script>

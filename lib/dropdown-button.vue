@@ -25,7 +25,7 @@
         this.$emit('click')
       },
       onItemClick (item) {
-        this.$emit('itemclick')
+        this.$emit('itemclick', item)
       }
     }
   }

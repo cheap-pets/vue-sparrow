@@ -6,7 +6,8 @@
     <a toggle-type="expand" popup-action="toggle"></a>
     <div class="dropdown list-group" v-if="!readonly" :dropdown-align="dropdownAlign || 'justify'" :style="{ width: dropdownWidth }">
       <slot>
-        <su-option v-for="(option, index) in options" :key="option.value" :option="option" v-if="options && options.length"></su-option>
+        <su-option v-if="options && options.length" v-for="(option, index) in options"
+          :key="option.value" :option="option"></su-option>
       </slot>
     </div>
   </div>

@@ -2,7 +2,8 @@
   <div class="btn-group">
     <slot>
       <su-button v-if="buttons" v-for="(btn,index) in buttons" :key="index" @click="onButtonClick(btn)"
-        :icon="getBtnIcon(btn)" :buttonType="getBtnType(btn)" :buttonStyle="getBtnStyle(btn)" :disabled="disabled" :toggled="toggled === btn">{{ getBtnText(btn) }}</su-button>
+        :icon="getBtnIcon(btn)" :buttonType="getBtnType(btn)" :buttonStyle="getBtnStyle(btn)"
+        :disabled="disabled" :toggled="toggled === btn">{{ getBtnText(btn) }}</su-button>
     </slot>
   </div>
 </template>
