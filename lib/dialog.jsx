@@ -180,7 +180,7 @@ Dialog._messageDialog = new Dialog({
   primaryButton: '确定'
 })
 
-Dialog.messageBox = function ({ title = '提示', message, buttons = '确定', primaryButton, danger, callback }) {
+Dialog.messageBox = function ({ title = '提示', message, buttons = '确定', primaryButton = '确定', danger, callback }) {
   const dlg = this._messageDialog
   dlg.$off('buttonclick')
   dlg.show({
