@@ -1,7 +1,7 @@
 <template>
   <div class="input-box dropdown-group" :readonly="readonly" :buttons="buttons"
     sparrow-popup :popup-action="popupAction" @optionclick.stop="onOptionClick">
-    <input type="text" :placeholder="placeholder" v-model="inputValue" :readonly="readonly || isDropdownList">
+    <input type="text" :placeholder="placeholder" v-model="inputValue" @input="onInput" :readonly="readonly || isDropdownList">
     <a toggle-type="clear" popup-action="close" v-if="buttons" @click="clear"></a>
     <a toggle-type="expand" popup-action="toggle"></a>
     <div class="dropdown list-group" v-if="!readonly" :dropdown-align="dropdownAlign || 'justify'" :style="{ width: dropdownWidth }">
@@ -80,6 +80,9 @@
       getOptionLabel (option) {
         const { label: labelField = 'label', value: valueField = 'value' } = Object(this.fields)
         return option ? option[labelField] || option[valueField] : ''
+      },
+      onInput (event) {
+        this.$emit('input', event.target.value, this)
       },
       onOptionClick (event) {
         const value = event._su_event_data
