@@ -10,6 +10,6 @@
   ],
   "dependencies": {
     "lodash.isstring": "^4.0.1",
-    "sparrow-popup": "^2.0.14"
+    "sparrow-popup": "^2.0.15"
   }
 }
