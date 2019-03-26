@@ -112,7 +112,7 @@ class Dialog {
       },
       render (h) {
         return (
-          <div class="modal-mask" style={ this.maskStyle } onPopupopen={ this.onShow } onPopupclose={ this.onHide }>
+          <div class="modal-mask" justify-content="center" style={ this.maskStyle } onPopupopen={ this.onShow } onPopupclose={ this.onHide }>
             {
               this.$options.components['slot-dialog']
                 ? <slot-dialog class={['dialog', this.danger ? 'danger' : '']} style={ this.dialogStyle } params={ this.params } ref="dialogComponent"></slot-dialog>
