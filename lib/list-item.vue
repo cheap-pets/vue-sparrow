@@ -1,6 +1,6 @@
 <template>
   <a class="list-group-item" :class="{ active: active }" :checked="checkedValue"
-    @click="onItemClick" :toggle-type="toggleType" :popup-action="popupAction">
+    @click="onItemClick" :toggle-type="tgType" :popup-action="popupAction">
     <slot>
       <span v-if="iconValue" :class="iconValue"></span>
       <span v-if="labelValue">{{ labelValue }}</span>
@@ -13,7 +13,7 @@
 
   export default {
     name: 'SuListItem',
-    props: [ 'fields', 'item', 'icon', 'label', 'checked', 'active', 'disabled', 'popupAction' ],
+    props: [ 'fields', 'item', 'icon', 'label', 'checked', 'active', 'disabled', 'popupAction', 'toggleType' ],
     computed: {
       iconValue () {
         return this.getFieldValue('icon')
@@ -27,8 +27,8 @@
       disabledValue () {
         return this.getFieldValue('disabled')
       },
-      toggleType () {
-        return this.checkedValue ? 'check' : undefined
+      tgType () {
+        return this.toggleType || (this.checkedValue ? 'check' : undefined)
       }
     },
     methods: {
