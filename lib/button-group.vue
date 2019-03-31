@@ -1,9 +1,11 @@
 <template>
   <div class="btn-group">
     <slot>
-      <su-button v-if="buttons" v-for="(btn,index) in buttons" :key="index" @click="onButtonClick(btn)"
-        :icon="getBtnIcon(btn)" :buttonType="getBtnType(btn)" :buttonStyle="getBtnStyle(btn)"
-        :disabled="disabled" :toggled="toggled === btn">{{ getBtnText(btn) }}</su-button>
+      <template v-if="buttons">
+        <su-button v-for="(btn,index) in buttons" :key="index" @click="onButtonClick(btn)"
+          :icon="getBtnIcon(btn)" :buttonType="getBtnType(btn)" :buttonStyle="getBtnStyle(btn)"
+          :disabled="disabled" :toggled="toggled === btn">{{ getBtnText(btn) }}</su-button>
+      </template>
     </slot>
   </div>
 </template>
