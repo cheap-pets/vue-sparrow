@@ -6,7 +6,7 @@
     <slot name="trigger">
       <div class="bar" justify-content="center">
         <a class="text-link" toggle-type="expand" :expanded="expandState" @click="onToggle">
-          {{ expanded ? collapseTitle : expandTitle }}
+          {{ expandState ? collapseTitle : expandTitle }}
         </a>
       </div>
     </slot>
