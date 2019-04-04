@@ -1,8 +1,8 @@
 <template>
   <div class="list-group">
     <slot>
-      <su-list-item v-for="(item, index) in items" :key="index" :item="item" :fields="fields"
-        v-if="items && items.length" @itemclick="onItemClick(item)" :active="item === activeItem">
+      <su-list-item v-for="(item, index) in items" :key="index" :item="item" :popup-action="itemPopupAction"
+         :fields="fields" v-if="items && items.length" @itemclick="onItemClick(item)" :active="item === activeItem">
       </su-list-item>
     </slot>
   </div>
@@ -11,7 +11,7 @@
 <script>
   export default {
     name: 'SuList',
-    props: [ 'items', 'fields', 'activeItem', 'selectable' ],
+    props: [ 'items', 'fields', 'activeItem', 'selectable', 'itemPopupAction' ],
     model: {
       prop: 'activeItem',
       event: 'select'
