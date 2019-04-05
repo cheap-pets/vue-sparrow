@@ -9,9 +9,11 @@
     "lib"
   ],
   "dependencies": {
+    "lodash.isdate": "^4.0.1",
     "lodash.isstring": "^4.0.1"
   },
   "peerDependencies": {
-    "sparrow-popup": "^2.0.17"
+    "sparrow-popup": "^2.0.21",
+    "dayjs": "^1.8.12"
   }
 }
