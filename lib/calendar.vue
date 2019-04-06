@@ -148,6 +148,7 @@
         naviStartYear: null,
         naviYear: null,
         naviMonth: null,
+        naviDate: null,
         naviDateYear: year,
         naviDateMonth: month,
         dateRows: [ [], [], [], [], [], [], [] ],
@@ -250,6 +251,7 @@
         this.naviMonth = month
         this.naviDateYear = year
         this.naviDateMonth = month
+        this.naviDate = date
         this.updateYearCells()
         this.updateDateCells()
       },
@@ -273,7 +275,7 @@
         const today = new Date()
         this.naviDateYear = today.getFullYear()
         this.naviDateMonth = today.getMonth()
-        this.updateDateCells
+        this.updateDateCells()
       },
       goSelectYear () {
         this.naviMonth = this.naviDateMonth
@@ -303,7 +305,7 @@
       onMonthCellClick (cell) {
         this.naviMonth = cell.month
         if (this.naviYear >= this.naviStartYear - 1 && this.naviYear < this.naviStartYear + 11) {
-          if (this.selectMode === 'date') {
+          if (this.selectMode !== 'year' && this.selectMode !== 'month') {
             this.naviDateYear = this.naviYear
             this.naviDateMonth = this.naviMonth
             this.updateDateCells()
@@ -315,23 +317,20 @@
       },
       onDateCellClick (cell) {
         if (cell.outOfRange) return
+        this.naviDate = cell.date
         if (this.year !== cell.year || this.month !== cell.month || this.date !== cell.month) {
           const value = new Date(cell.year, cell.month, cell.date)
           this.$emit('change', value, cell.year, cell.month, cell.date)
         }
-      },
+      }
     },
     mounted () {
-      this.setTab(this.selectMode === 'date' ? 'date' : 'year')
+      this.setTab(this.selectMode === 'year' || this.selectMode === 'month' ? 'year' : 'date')
       this.resetDate(this.value)
     },
     watch: {
       value (v) {
         this.resetDate(v)
-      },
-      selectMode (v) {
-        this.setTab(v)
-        this.resetDate(this.value)
       }
     }
   }
