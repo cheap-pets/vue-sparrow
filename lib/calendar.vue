@@ -91,7 +91,7 @@
   }
 
   export default {
-    props: ['value', 'selectMode', 'language', 'startDate', 'endDate'],
+    props: ['value', 'selectMode', 'language', 'rangeStart', 'rangeEnd'],
     model: {
       prop: 'value',
       event: 'change'
@@ -197,7 +197,7 @@
               n++
             }
             const v = new Date(cell.year, cell.month, cell.date)
-            if ((this.startDate && v < this.startDate) || (this.endDate && v > this.endDate)) {
+            if ((this.rangeStart && v < this.rangeStart) || (this.rangeEnd && v > this.rangeEnd)) {
               cell.outOfRange = true
             }
             const today = new Date()
@@ -217,7 +217,7 @@
         let n = this.naviStartYear - 1
         for (let i = 0, len = this.yearRows.length; i < len; i++) {
           let row = this.yearRows[i]
-          for (let j = 0; j < 4; j ++) {
+          for (let j = 0; j < 4; j++) {
             let cell = {
               year: n,
               notThisRange: (n < this.naviStartYear || n > this.naviStartYear + 9) ? true : undefined
