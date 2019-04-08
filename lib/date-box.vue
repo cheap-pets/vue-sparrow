@@ -5,7 +5,7 @@
     <a toggle-type="clear" popup-action="close" v-if="buttons" @click="clear"></a>
     <a toggle-type="expand" popup-action="toggle"></a>
     <su-calendar :select-mode="selectMode" class="dropdown" v-if="!readonly" :style="{ width: dropdownWidth }"
-      :value="value" :range-start="rangeStart" :range-end="rangeEnd"
+      :value="localValue" :range-start="rangeStart" :range-end="rangeEnd"
       :dropdown-direction="dropdownDirection" :dropdown-align="dropdownAlign || 'justify'" @change="onChange" />
   </div>
 </template>
@@ -31,15 +31,22 @@
         return (this.readonly) ? 'none' : 'toggle'
       },
       inputValue () {
-        return this.displayValue || (this.value ? dayjs(this.value).format('YYYY-MM-DD') : '')
+        return this.displayValue || (this.localValue ? dayjs(this.localValue).format('YYYY-MM-DD') : '')
+      }
+    },
+    data () {
+      return {
+        localValue: null
       }
     },
     methods: {
       onChange (value, year, month, date) {
+        this.localValue = value
         this.$emit('change', value, year, month, date)
         this.collapse()
       },
       clear () {
+        this.localValue = null
         this.$emit('change', null)
       },
       expand () {
@@ -48,6 +55,14 @@
       collapse () {
         hide(this.$el)
       }
+    },
+    watch: {
+      value (v) {
+        this.localValue = v
+      }
+    },
+    mounted () {
+      this.localValue = this.value
     }
   }
 </script>
