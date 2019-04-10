@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="expand-panel" :expanded="expandState">
+    <div v-if="barPosition !== 'top'" class="expand-panel" :expanded="expandState">
       <slot></slot>
     </div>
     <slot name="trigger">
@@ -10,13 +10,16 @@
         </a>
       </div>
     </slot>
+    <div v-if="barPosition === 'top'" class="expand-panel" :expanded="expandState">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
     name: 'SuExpandPanel',
-    props: [ 'expanded', 'expandTitle', 'collapseTitle' ],
+    props: [ 'expanded', 'barPosition', 'expandTitle', 'collapseTitle' ],
     data () {
       return {
         expandState: this.expanded

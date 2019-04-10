@@ -4,7 +4,7 @@
     <input type="text" :placeholder="placeholder" v-model="inputValue"
       :popup-action="isDropdownList ? popupAction : 'none'" @input="onInput" :readonly="readonly || isDropdownList">
     <a toggle-type="clear" popup-action="close" v-if="buttons" @click="clear"></a>
-    <a toggle-type="expand" popup-action="toggle"></a>
+    <a :toggle-type="toggleType || 'expand'" popup-action="toggle"></a>
     <div class="dropdown" v-if="!readonly"
       :class="{ 'list-group': dropdownStyle !== 'dropdownpanel' }" :style="{ width: dropdownWidth }"
       :dropdown-direction="dropdownDirection" :dropdown-align="dropdownAlign || 'justify'">
@@ -21,7 +21,11 @@
 
   export default {
     name: 'SuComboBox',
-    props: [ 'displayValue', 'value', 'readonly', 'placeholder', 'clearButton', 'dropdownStyle', 'dropdownDirection', 'dropdownAlign', 'dropdownWidth', 'multiple', 'options', 'fields' ],
+    props: [
+      'displayValue', 'value', 'readonly', 'placeholder', 'clearButton', 'toggleType',
+      'dropdownStyle', 'dropdownDirection', 'dropdownAlign', 'dropdownWidth',
+      'multiple', 'options', 'fields'
+    ],
     model: {
       prop: 'value',
       event: 'change'

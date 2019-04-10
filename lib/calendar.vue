@@ -331,6 +331,12 @@
     watch: {
       value (v) {
         this.resetDate(v)
+      },
+      rangeStart (v) {
+        this.resetDate(this.value)
+      },
+      rangeEnd (v) {
+        this.resetDate(this.value)
       }
     }
   }
