@@ -2,25 +2,29 @@
   <div class="calendar flex-box" flex-direction="column">
     <template v-if="tab === 'date'">
       <div class="bar calendar-header header-line" flex-none>
-        <div class="flex-divider" transparent></div>
+        <div class="flex-divider" transparent />
         <div flex-auto>
           <span class="calendar-title" @click="goSelectYear">
             {{ naviDateYear }}&nbsp;{{ YEAR_LABEL }}&nbsp;{{ MONTHS[naviDateMonth] }}&nbsp;{{ MONTH_LABEL }}
           </span>
         </div>
-        <div class="flex-divider" transparent></div>
-        <a class="btn btn-text btn-primary icon icon-key-left" @click="goPrevMonth"></a>
-        <a class="btn btn-text btn-primary icon icon-event" @click="goThisMonth"></a>
-        <a class="btn btn-text btn-primary icon icon-key-right" @click="goNextMonth"></a>
+        <div class="flex-divider" transparent />
+        <a class="btn btn-text btn-primary icon icon-key-left" @click="goPrevMonth" />
+        <a class="btn btn-text btn-primary icon icon-event" @click="goThisMonth" />
+        <a class="btn btn-text btn-primary icon icon-key-right" @click="goNextMonth" />
       </div>
       <div class="flex-box calendar-week-header header-line" flex-none>
-        <div v-for="s in WEEK_DAYS" flex-auto>{{ s }}</div>
+        <div v-for="s in WEEK_DAYS" :key="s" flex-auto>
+          {{ s }}
+        </div>
       </div>
       <div class="calendar-grid flex-box" flex-auto flex-direction="column">
-        <div v-for="(row, index) in dateRows" flex-auto class="flex-box calendar-grid-row" align-items="stretch">
-          <div v-for="cell in row" flex-auto class="flex-box calendar-grid-cell"
-            :class="{ active: cell.active }" justify-content="center" :is-today="cell.today"
-            :not-this-range="cell.notThisRange" :out-of-range="cell.outOfRange" @click="onDateCellClick(cell)">
+        <div v-for="(row, rowIdx) in dateRows" :key="rowIdx"
+          flex-auto class="flex-box calendar-grid-row" align-items="stretch">
+          <div v-for="(cell, cellIdx) in row" :key="cellIdx"
+            class="flex-box calendar-grid-cell" flex-auto justify-content="center"
+            :class="{ active: cell.active }" :is-today="cell.today" :marked="cell.marked"
+            :not-this-month="cell.notThisMonth" :out-of-range="cell.outOfRange" @click="onDateCellClick(cell)">
             {{ cell.date }}
           </div>
         </div>
@@ -28,29 +32,31 @@
     </template>
     <template v-else>
       <div class="bar calendar-header header-line" flex-none>
-        <div class="flex-divider" transparent></div>
+        <div class="flex-divider" transparent />
         <div flex-auto>
           <span class="calendar-title">
             {{ naviStartYear }}&nbsp;~&nbsp;{{ naviStartYear + 9 }}&nbsp;
           </span>
         </div>
-        <div class="flex-divider" transparent></div>
-        <a class="btn btn-text btn-primary icon icon-key-left" @click="goPrevYears"></a>
-        <a class="btn btn-text btn-primary icon icon-event" @click="goThisYear"></a>
-        <a class="btn btn-text btn-primary icon icon-key-right" @click="goNextYears"></a>
+        <div class="flex-divider" transparent />
+        <a class="btn btn-text btn-primary icon icon-key-left" @click="goPrevYears" />
+        <a class="btn btn-text btn-primary icon icon-event" @click="goThisYear" />
+        <a class="btn btn-text btn-primary icon icon-key-right" @click="goNextYears" />
       </div>
-      <div class="calendar-grid flex-box" :class="{ 'header-line': selectMode !== 'year' }" flex-auto flex-direction="column">
-        <div v-for="(row, index) in yearRows" flex-auto class="flex-box calendar-grid-row" align-items="stretch">
-          <div v-for="cell in row" flex-auto class="flex-box calendar-grid-cell"
+      <div class="calendar-grid flex-box" :class="{ 'header-line': selectMode !== 'year' }"
+        flex-auto flex-direction="column">
+        <div v-for="(row, rowIdx) in yearRows" :key="rowIdx" flex-auto class="flex-box calendar-grid-row" align-items="stretch">
+          <div v-for="(cell, cellIdx) in row" :key="cellIdx" flex-auto class="flex-box calendar-grid-cell"
             :class="{ active: cell.year === naviYear }" justify-content="center" :this-year="cell.year === thisYear"
-            :not-this-range="cell.notThisRange" :out-of-range="cell.outOfRange" @click="onYearCellClick(cell)">
+            :not-this-decade="cell.notThisDecade" :out-of-range="cell.outOfRange" @click="onYearCellClick(cell)">
             {{ cell.year }}
           </div>
         </div>
       </div>
-      <div class="calendar-grid flex-box" flex-auto flex-direction="column" v-if="selectMode !== 'year'">
-        <div v-for="(row, index) in monthRows" flex-auto class="flex-box calendar-grid-row" align-items="stretch">
-          <div v-for="cell in row" flex-auto class="flex-box calendar-grid-cell"
+      <div v-if="selectMode !== 'year'" class="calendar-grid flex-box" flex-auto flex-direction="column">
+        <div v-for="(row, rowIdx) in monthRows" :key="rowIdx"
+          flex-auto class="flex-box calendar-grid-row" align-items="stretch">
+          <div v-for="(cell, cellIdx) in row" :key="cellIdx" flex-auto class="flex-box calendar-grid-cell"
             :class="{ active: cell.month === naviMonth }" justify-content="center"
             @click="onMonthCellClick(cell)">
             {{ cell.label }}
@@ -90,11 +96,62 @@
     return { year, month }
   }
 
+  function _parseDate (v) {
+    v = v || new Date()
+    return {
+      year: v.getFullYear(),
+      month: v.getMonth(),
+      date: v.getDate()
+    }
+  }
+
+  function _isSame (a, b) {
+    return a.year === b.year && a.month === b.month && (!a.date || !b.date || a.date === b.date)
+  }
+
   export default {
-    props: ['value', 'selectMode', 'language', 'rangeStart', 'rangeEnd'],
     model: {
       prop: 'value',
       event: 'change'
+    },
+    props: {
+      value: Date,
+      selectMode: {
+        type: String,
+        default: 'date'
+      },
+      language: {
+        type: String,
+        default: 'zh-CN'
+      },
+      rangeStart: Date,
+      rangeEnd: Date,
+      markedDates: {
+        type: Array,
+        default () {
+          return []
+        }
+      }
+    },
+    data () {
+      const { year, month, date } = _parseDate()
+      return {
+        year,
+        month,
+        date,
+        thisYear: year,
+        thisMonth: month,
+        naviStartYear: null,
+        naviYear: null,
+        naviMonth: null,
+        naviDate: null,
+        naviDateYear: year,
+        naviDateMonth: month,
+        monthlyMarkedDates: [],
+        dateRows: [],
+        yearRows: [],
+        tab: 'date'
+      }
     },
     computed: {
       isZh () {
@@ -133,33 +190,39 @@
         return rows
       }
     },
-    data () {
-      const today = new Date()
-      const year = today.getFullYear()
-      const month = today.getMonth()
-      const date = today.getDate()
-      return {
-        tab: 'date',
-        year,
-        month,
-        date,
-        thisYear: year,
-        thisMonth: month,
-        naviStartYear: null,
-        naviYear: null,
-        naviMonth: null,
-        naviDate: null,
-        naviDateYear: year,
-        naviDateMonth: month,
-        dateRows: [ [], [], [], [], [], [], [] ],
-        yearRows: [ [], [], [] ]
+    watch: {
+      value (v) {
+        this.resetDate(v)
+      },
+      rangeStart (v) {
+        this.resetDate(this.value)
+      },
+      rangeEnd (v) {
+        this.resetDate(this.value)
+      },
+      markedDates (v) {
+        this.resetDate(this.value)
       }
+    },
+    mounted () {
+      this.setTab(this.selectMode === 'year' || this.selectMode === 'month' ? 'year' : 'date')
+      this.resetDate(this.value)
     },
     methods: {
       setTab (v) {
         this.tab = ['year', 'month'].indexOf(v) >= 0 ? 'year' : 'date'
       },
+      setDateCellStatus (cell) {
+        const date = new Date(cell.year, cell.month, cell.date)
+        const str = cell.year + '-' + (cell.month + 1) + '-' + cell.date
+        const { rangeStart, rangeEnd } = this
+        if (_isSame(cell, this)) cell.active = true
+        if (_isSame(cell, _parseDate())) cell.today = true
+        if ((rangeStart && date < rangeStart) || (rangeEnd && date > rangeEnd)) cell.outOfRange = true
+        if (this.monthlyMarkedDates.indexOf(str) >= 0) cell.marked = true
+      },
       updateDateCells () {
+        this.filterMarkedDates()
         const year = this.naviDateYear
         const month = this.naviDateMonth
         const firstDay = _getFirstDay({ year, month })
@@ -167,10 +230,10 @@
         const prev = _getSiblingMonth({ year, month, step: -1 })
         const prevMaxDays = _getMaxDays(prev)
         const next = _getSiblingMonth({ year, month, step: 1 })
-
+        const rows = []
         let n = 1
-        for (let i = 0, len = this.dateRows.length; i < len; i++) {
-          let row = this.dateRows[i]
+        for (let i = 0; i < 7; i++) {
+          const row = []
           let cell
           for (let j = 0; j < 7; j++) {
             if (i === 0 && j < firstDay) {
@@ -178,14 +241,14 @@
                 year: prev.year,
                 month: prev.month,
                 date: prevMaxDays - firstDay + j + 1,
-                notThisRange: true
+                notThisMonth: true
               }
             } else if (i > 0 && n > maxDays) {
               cell = {
                 year: next.year,
                 month: next.month,
                 date: n - maxDays,
-                notThisRange: true
+                notThisMonth: true
               }
               n++
             } else {
@@ -196,36 +259,39 @@
               }
               n++
             }
-            const v = new Date(cell.year, cell.month, cell.date)
-            if ((this.rangeStart && v < this.rangeStart) || (this.rangeEnd && v > this.rangeEnd)) {
-              cell.outOfRange = true
-            }
-            const today = new Date()
-            if (cell.year === this.year && cell.month === this.month && cell.date === this.date) {
-              cell.active = true
-            }
-            if (cell.year === today.getFullYear() &&
-              cell.month === today.getMonth() &&
-              cell.date === today.getDate()) {
-              cell.today = true
-            }
-            Vue.set(row, j, cell)
+            this.setDateCellStatus(cell)
+            row.push(cell)
           }
+          rows.push(row)
         }
+        this.dateRows = rows
+        this.$emit('navigate', { year, month })
+      },
+      filterMarkedDates () {
+        const arr = []
+        const current = { year: this.naviDateYear, month: this.naviDateMonth }
+        this.markedDates.forEach(date => {
+          const p = _parseDate(date)
+          if (_isSame(p, current)) arr.push(p.year + '-' + (p.month + 1) + '-' + p.date)
+        })
+        this.monthlyMarkedDates = arr
       },
       updateYearCells () {
+        const rows = []
         let n = this.naviStartYear - 1
-        for (let i = 0, len = this.yearRows.length; i < len; i++) {
-          let row = this.yearRows[i]
+        for (let i = 0; i < 3; i++) {
+          const row = []
           for (let j = 0; j < 4; j++) {
-            let cell = {
+            const cell = {
               year: n,
-              notThisRange: (n < this.naviStartYear || n > this.naviStartYear + 9) ? true : undefined
+              notThisDecade: (n < this.naviStartYear || n > this.naviStartYear + 9) ? true : undefined
             }
-            Vue.set(row, j, cell)
+            row.push(cell)
             n++
           }
+          rows.push(row)
         }
+        this.yearRows = rows
       },
       resetDate (value) {
         let v
@@ -239,10 +305,7 @@
             : null
         } catch (e) {
         }
-        if (!v) v = new Date()
-        const year = v.getFullYear()
-        const month = v.getMonth()
-        const date = v.getDate()
+        const { year, month, date } = _parseDate(v)
         this.year = year
         this.month = month
         this.date = date
@@ -272,9 +335,9 @@
         this.goMonth(1)
       },
       goThisMonth () {
-        const today = new Date()
-        this.naviDateYear = today.getFullYear()
-        this.naviDateMonth = today.getMonth()
+        const { year, month } = _parseDate()
+        this.naviDateYear = year
+        this.naviDateMonth = month
         this.updateDateCells()
       },
       goSelectYear () {
@@ -322,21 +385,6 @@
           const value = new Date(cell.year, cell.month, cell.date)
           this.$emit('change', value, cell.year, cell.month, cell.date)
         }
-      }
-    },
-    mounted () {
-      this.setTab(this.selectMode === 'year' || this.selectMode === 'month' ? 'year' : 'date')
-      this.resetDate(this.value)
-    },
-    watch: {
-      value (v) {
-        this.resetDate(v)
-      },
-      rangeStart (v) {
-        this.resetDate(this.value)
-      },
-      rangeEnd (v) {
-        this.resetDate(this.value)
       }
     }
   }
