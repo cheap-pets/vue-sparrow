@@ -9,12 +9,12 @@
     "lib"
   ],
   "dependencies": {
-    "dayjs": "^1.8.12",
+    "dayjs": "^1.8.13",
     "lodash.isdate": "^4.0.1",
     "lodash.isstring": "^4.0.1"
   },
   "peerDependencies": {
-    "sparrow-popup": "^2.0.21"
+    "sparrow-popup": "^2.0.24"
   },
   "devDependencies": {
   }

@@ -1,5 +1,5 @@
 import { show, hide } from 'sparrow-popup'
-import emit from './emit-event'
+import emit from './utils/emit-event'
 
 function broadcast (children, eventName) {
   ['dialogComponent', 'headComponent', 'bodyComponent', 'footComponent'].forEach(item => {

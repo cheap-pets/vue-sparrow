@@ -27,6 +27,7 @@
     }],
     "vue/max-attributes-per-line": 0,
     "vue/html-closing-bracket-newline": 0,
+    "vue/require-prop-types": 0,
     "vue/script-indent": ["error", 2, { "baseIndent": 1, "switchCase": 1 }],
     "complexity": [ 1, 10 ],
     "max-len": [
