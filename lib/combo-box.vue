@@ -1,16 +1,28 @@
 <template>
-  <div class="input-box dropdown-group" :readonly="readonly" :buttons="buttons"
-    sparrow-popup @optionclick.stop="onOptionClick">
-    <input type="text" :placeholder="placeholder" v-model="inputValue"
-      :popup-action="isDropdownList ? popupAction : 'none'" @input="onInput" :readonly="readonly || isDropdownList">
-    <a toggle-type="clear" popup-action="close" v-if="buttons" @click="clear"></a>
-    <a :toggle-type="toggleType || 'expand'" popup-action="toggle"></a>
-    <div class="dropdown" v-if="!readonly"
-      :class="{ 'list-group': dropdownStyle !== 'dropdownpanel' }" :style="{ width: dropdownWidth }"
-      :dropdown-direction="dropdownDirection" :dropdown-align="dropdownAlign || 'justify'">
+  <div
+    class="input-box dropdown-group"
+    :readonly="readonly"
+    :buttons="buttons"
+    sparrow-popup
+    @optionclick.stop="onOptionClick">
+    <input
+      v-model="inputValue"
+      type="text"
+      :placeholder="placeholder"
+      :popup-action="isDropdownList ? popupAction : 'none'"
+      :readonly="readonly || isDropdownList"
+      @input="onInput">
+    <a v-if="buttons" toggle-type="clear" popup-action="close" @click="clear" />
+    <a :toggle-type="toggleType || 'expand'" popup-action="toggle" />
+    <div v-if="!readonly" class="dropdown"
+      :class="{ 'list-group': dropdownStyle !== 'dropdownpanel' }"
+      :style="{ width: dropdownWidth }"
+      :dropdown-direction="dropdownDirection"
+      :dropdown-align="dropdownAlign || 'justify'">
       <slot>
-        <su-option v-if="options && options.length" v-for="(option, index) in options"
-          :key="option.value" :option="option"></su-option>
+        <template v-if="options">
+          <su-option v-for="option in options" :key="option.value" :option="option" />
+        </template>
       </slot>
     </div>
   </div>
@@ -21,15 +33,15 @@
 
   export default {
     name: 'SuComboBox',
+    model: {
+      prop: 'value',
+      event: 'change'
+    },
     props: [
       'displayValue', 'value', 'readonly', 'placeholder', 'clearButton', 'toggleType',
       'dropdownStyle', 'dropdownDirection', 'dropdownAlign', 'dropdownWidth',
       'multiple', 'options', 'fields'
     ],
-    model: {
-      prop: 'value',
-      event: 'change'
-    },
     provide () {
       return {
         comboBox: this

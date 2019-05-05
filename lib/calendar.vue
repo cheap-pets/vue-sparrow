@@ -78,8 +78,7 @@
   const MAX_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
   function _getMaxDays ({ year, month }) {
-    return month === 1 &&
-      ((year % 4 === 0 && month % 100 !== 0) || year % 400 === 0)
+    return month === 1 && ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0)
       ? 29
       : MAX_DAYS[month]
   }

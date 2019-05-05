@@ -1,13 +1,21 @@
 <template>
-  <div class="input-box dropdown-group" :readonly="readonly" :buttons="buttons"
-    sparrow-popup>
-    <input type="text" :placeholder="placeholder" :value="inputValue" readonly :popup-action="popupAction">
+  <div class="input-box dropdown-group" :readonly="readonly" :buttons="buttons" sparrow-popup>
+    <input type="text" :placeholder="placeholder" :value="inputValue" :popup-action="popupAction" readonly>
     <a v-if="buttons" toggle-type="clear" popup-action="close" @click="clear" />
     <a toggle-type="expand" popup-action="toggle" />
-    <su-calendar v-if="!readonly" :select-mode="selectMode" class="dropdown" :style="{ width: dropdownWidth }"
-      :value="localValue" :range-start="rangeStart" :range-end="rangeEnd" :marked-dates="markedDates"
-      :dropdown-direction="dropdownDirection" :dropdown-align="dropdownAlign || 'justify'"
-      @change="onChange" @navigate="onNavigate" />
+    <su-calendar
+      v-if="!readonly"
+      class="dropdown"
+      :style="{ width: dropdownWidth }"
+      :select-mode="selectMode"
+      :value="localValue"
+      :range-start="rangeStart"
+      :range-end="rangeEnd"
+      :marked-dates="markedDates"
+      :dropdown-direction="dropdownDirection"
+      :dropdown-align="dropdownAlign || 'justify'"
+      @change="onChange"
+      @navigate="onNavigate" />
   </div>
 </template>
 
