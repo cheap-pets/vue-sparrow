@@ -38,9 +38,9 @@
       event: 'change'
     },
     props: [
-      'displayValue', 'value', 'readonly', 'placeholder', 'clearButton', 'toggleType',
-      'dropdownStyle', 'dropdownDirection', 'dropdownAlign', 'dropdownWidth',
-      'multiple', 'options', 'fields'
+      'clearButton', 'displayValue',
+      'dropdownAlign', 'dropdownDirection', 'dropdownStyle', 'dropdownWidth',
+      'fields', 'multiple', 'options', 'placeholder', 'readonly', 'toggleType', 'value'
     ],
     provide () {
       return {

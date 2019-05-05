@@ -45,7 +45,8 @@
       </div>
       <div class="calendar-grid flex-box" :class="{ 'header-line': selectMode !== 'year' }"
         flex-auto flex-direction="column">
-        <div v-for="(row, rowIdx) in yearRows" :key="rowIdx" flex-auto class="flex-box calendar-grid-row" align-items="stretch">
+        <div v-for="(row, rowIdx) in yearRows" :key="rowIdx"
+          flex-auto class="flex-box calendar-grid-row" align-items="stretch">
           <div v-for="(cell, cellIdx) in row" :key="cellIdx" flex-auto class="flex-box calendar-grid-cell"
             :class="{ active: cell.year === naviYear }" justify-content="center" :this-year="cell.year === thisYear"
             :not-this-decade="cell.notThisDecade" :out-of-range="cell.outOfRange" @click="onYearCellClick(cell)">

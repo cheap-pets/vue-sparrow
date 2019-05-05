@@ -1,7 +1,7 @@
 <template>
-  <div class="input-box" :class="boxStyle">
-    <span class="icon icon-search"></span>
-    <input type="text" :placeholder="placeholder" @input="inputUpdate" @focus="select">
+  <div class="input-box" :style="{ width: width }">
+    <span class="icon icon-search" />
+    <input type="text" :placeholder="placeholder" @input="onInput" @focus="select">
   </div>
 </template>
 
@@ -9,15 +9,8 @@
   export default {
     name: 'SuSearchBox',
     props: [ 'placeholder', 'width' ],
-    computed: {
-      boxStyle () {
-        return {
-          width: this.width ? (this.width + (!isNaN(this.width) ? 'px' : '')) : undefined
-        }
-      }
-    },
     methods: {
-      inputUpdate (e) {
+      onInput (e) {
         if (this.__timer) clearTimeout(this.__timer)
         this.__timer = setTimeout(() => {
           this.$emit('search', e.target.value)
