@@ -37,14 +37,19 @@
       prop: 'value',
       event: 'change'
     },
+    provide () {
+      return {
+        comboBox: this
+      }
+    },
     props: [
       'clearButton', 'displayValue',
       'dropdownAlign', 'dropdownDirection', 'dropdownStyle', 'dropdownWidth',
       'fields', 'multiple', 'options', 'placeholder', 'readonly', 'toggleType', 'value'
     ],
-    provide () {
+    data () {
       return {
-        comboBox: this
+        localValue: null
       }
     },
     computed: {
@@ -93,6 +98,11 @@
         set (v) {
           this.$emit('change', v)
         }
+      }
+    },
+    watch: {
+      value (v) {
+        this.localValue = v
       }
     },
     methods: {

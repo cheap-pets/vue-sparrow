@@ -10,12 +10,6 @@
   "plugins": [
     "vue"
   ],
-  "globals": {
-    "Vue": false,
-    "Vuex": false,
-    "axios": false,
-    "iwop": false
-  },
   "env": {
     "browser": true,
     "es6": true
