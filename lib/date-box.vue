@@ -20,6 +20,8 @@
 </template>
 
 <script>
+  import isDate from 'lodash.isdate'
+  import isString from 'lodash.isstring'
   import { show, hide } from 'sparrow-popup'
   import formatDate from './utils/format-date'
 
@@ -54,14 +56,28 @@
       }
     },
     watch: {
-      value (v) {
-        this.localValue = v
+      value (value) {
+        this.setLocalValue(value)
       }
     },
     mounted () {
-      this.localValue = this.value
+      this.setLocalValue(this.value)
     },
     methods: {
+      setLocalValue (value) {
+        let v
+        try {
+          v = value
+            ? (
+              isDate(value)
+                ? value
+                : (isString(value) ? new Date(Date.parse(value)) : null)
+            )
+            : null
+        } catch (e) {
+        }
+        this.localValue = v
+      },
       onChange (value, year, month, date) {
         this.localValue = value
         this.$emit('change', value, year, month, date)
