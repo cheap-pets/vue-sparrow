@@ -18,6 +18,7 @@
       },
       select (e) {
         e.target.select()
+        this.$emit('focus')
       }
     }
   }
