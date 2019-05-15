@@ -1,45 +1,54 @@
 <template>
   <su-list-item
-    :item="option"
-    :fields="fields"
-    :icon="icon"
-    :label="label"
+    :icon="itemIcon"
+    :label="itemLabel"
     :checked="checked"
     :disabled="disabled"
-    :popup-action="popupActionValue"
     @itemclick="onOptionClick" />
 </template>
 
 <script>
-  import emit from './utils/emit-event'
+  import isString from 'lodash.isstring'
 
   export default {
     name: 'SuOption',
-    props: ['option', 'value', 'icon', 'label', 'active', 'disabled', 'popupAction'],
-    inject: ['comboBox'],
+    inject: [ '$comboBox' ],
+    props: [ 'fields', 'option', 'icon', 'label', 'value', 'disabled' ],
     computed: {
-      fields () {
-        return this.comboBox.fields
+      itemValue () {
+        return isString(this.option) ? this.item : this.getFieldValue('value')
       },
-      optionValue () {
-        return this.value || Object(this.option)[Object(this.fields).value || 'value']
+      itemLabel () {
+        return isString(this.option) ? this.item : (this.getFieldValue('label') || this.itemValue)
+      },
+      itemIcon () {
+        return this.getFieldValue('icon')
       },
       checked () {
-        const { multiple, value } = this.comboBox
-        return multiple && value
-          ? value.findIndex(v => this.optionValue.toString() === v.toString()) > -1
+        return this.$comboBox.multiple
+          ? this.$comboBox.localValue.indexOf(this.itemValue) !== -1
           : undefined
-      },
-      popupActionValue () {
-        return this.popupAction || (this.comboBox.multiple ? 'none' : 'close')
       }
+    },
+    created () {
+      this.$comboBox.appendOption({ label: this.itemLabel, value: this.itemValue })
+    },
+    beforeDestroy () {
+      this.$comboBox.removeOption(this.itemValue)
     },
     methods: {
       getFieldValue (field) {
-        return this[field] || Object(this.item)[Object(this.fields)[field] || field]
+        field = Object(this.fields || this.$comboBox.fields)[field] || field
+        return this[field] || (this.option ? this.option[field] : undefined)
       },
       onOptionClick (item) {
-        emit(this.$el, 'optionclick', { canBubble: true, data: this.optionValue })
+        const option = {
+          label: this.itemLabel,
+          value: this.itemValue,
+          option: this.option
+        }
+        this.$comboBox.onOptionClick(option)
+        this.$emit('optionclick', this.option || option)
       }
     }
   }

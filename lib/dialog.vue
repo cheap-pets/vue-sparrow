@@ -22,9 +22,9 @@
 
 <script>
   import { show, hide } from 'sparrow-popup'
-  
+
   export default {
-    name: 'su-dialog',
+    name: 'SuDialog',
     props: ['zIndex', 'height', 'width', 'title', 'buttons', 'primaryButton'],
     computed: {
       btns () {

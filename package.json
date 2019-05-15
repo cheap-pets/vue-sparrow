@@ -12,6 +12,10 @@
     "lodash.isdate": "^4.0.1",
     "lodash.isstring": "^4.0.1"
   },
+  "devDependencies": {
+    "core-js": "^3.0.1",
+    "sparrow-popup": "^2.0.24"
+  },
   "peerDependencies": {
     "sparrow-popup": "^2.0.24"
   }

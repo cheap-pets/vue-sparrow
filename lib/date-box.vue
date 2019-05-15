@@ -1,10 +1,6 @@
 <template>
-  <div class="input-box dropdown-group" :readonly="readonly" :buttons="buttons" sparrow-popup>
-    <input type="text" :placeholder="placeholder" :value="inputValue" :popup-action="popupAction" readonly>
-    <a v-if="buttons" toggle-type="clear" popup-action="close" @click="clear" />
-    <a toggle-type="expand" popup-action="toggle" />
+  <su-combo-box slot-mode="any" :display-value="inputValue" @clear="onClear">
     <su-calendar
-      v-if="!readonly"
       class="dropdown"
       :style="{ width: dropdownWidth }"
       :select-mode="selectMode"
@@ -16,7 +12,7 @@
       :dropdown-align="dropdownAlign || 'justify'"
       @change="onChange"
       @navigate="onNavigate" />
-  </div>
+  </su-combo-box>
 </template>
 
 <script>
@@ -26,14 +22,14 @@
   import formatDate from './utils/format-date'
 
   export default {
-    name: 'SuComboBox',
+    name: 'SuDateBox',
     model: {
       prop: 'value',
       event: 'change'
     },
     props: [
-      'clearButton', 'displayValue', 'dropdownAlign', 'dropdownDirection', 'dropdownWidth', 'format',
-      'markedDates', 'placeholder', 'rangeStart', 'rangeEnd', 'readonly', 'selectMode', 'value'
+      'displayValue', 'dropdownAlign', 'dropdownDirection', 'dropdownWidth',
+      'format', 'markedDates', 'rangeStart', 'rangeEnd', 'selectMode', 'value'
     ],
     data () {
       return {
@@ -41,14 +37,6 @@
       }
     },
     computed: {
-      buttons () {
-        return (String(this.clearButton).toLowerCase() === 'false' || this.readonly || !this.inputValue)
-          ? undefined
-          : '2'
-      },
-      popupAction () {
-        return (this.readonly) ? 'none' : 'toggle'
-      },
       inputValue () {
         const format = this.format ||
           (this.selectMode === 'year' ? 'YYYY' : this.selectMode === 'month' ? 'YYYY-MM' : 'YYYY-MM-DD')
@@ -86,14 +74,17 @@
       onNavigate (args) {
         this.$emit('navigate', args)
       },
-      clear () {
-        this.localValue = null
+      onClear () {
+        this.setLocalValue(null)
+        this.$emit('clear')
         this.$emit('change', null)
       },
       expand () {
+        this.$emit('expand', this)
         show(this.$el)
       },
       collapse () {
+        this.$emit('collapse', this)
         hide(this.$el)
       }
     }

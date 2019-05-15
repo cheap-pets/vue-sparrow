@@ -1,9 +1,13 @@
 <template>
-  <a class="list-group-item" :class="{ active: active }" :checked="checkedValue"
-    @click="onItemClick" :toggle-type="tgType" :popup-action="popupAction">
+  <a class="list-group-item"
+    :class="{ active: active }"
+    :checked="itemChecked"
+    :disabled="itemDisabled"
+    :toggle-type="itemToggleType"
+    @click="onItemClick">
     <slot>
-      <span v-if="iconValue" :class="iconValue"></span>
-      <span v-if="labelValue">{{ labelValue }}</span>
+      <span v-if="itemIcon" :class="itemIcon" />
+      <span v-if="itemLabel">{{ itemLabel }}</span>
     </slot>
   </a>
 </template>
@@ -13,30 +17,31 @@
 
   export default {
     name: 'SuListItem',
-    props: [ 'fields', 'item', 'icon', 'label', 'checked', 'active', 'disabled', 'popupAction', 'toggleType' ],
+    props: ['fields', 'item', 'icon', 'label', 'checked', 'active', 'disabled', 'toggleType'],
     computed: {
-      iconValue () {
+      itemIcon () {
         return this.getFieldValue('icon')
       },
-      labelValue () {
+      itemLabel () {
         return this.getFieldValue('label') || (isString(this.item) ? this.item : undefined)
       },
-      checkedValue () {
+      itemChecked () {
         return this.getFieldValue('checked')
       },
-      disabledValue () {
+      itemDisabled () {
         return this.getFieldValue('disabled')
       },
-      tgType () {
-        return this.toggleType || (this.checkedValue ? 'check' : undefined)
+      itemToggleType () {
+        return this.toggleType || (this.itemChecked ? 'check' : undefined)
       }
     },
     methods: {
       getFieldValue (field) {
-        return this[field] || Object(this.item)[Object(this.fields)[field] || field]
+        field = Object(this.fields)[field] || field
+        return this[field] || (this.item ? this.item[field] : undefined)
       },
       onItemClick () {
-        if (!this.disabledValue) this.$emit('itemclick')
+        if (!this.itemDisabled) this.$emit('itemclick')
       }
     }
   }
