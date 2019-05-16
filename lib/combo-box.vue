@@ -13,7 +13,7 @@
       @input="onInput">
     <a v-if="clearable && inputValue" popup-action="close" toggle-type="clear" @click="clear" />
     <a v-if="toggleType" popup-action="toggle" :toggle-type="toggleType === true ? 'expand' : toggleType" />
-    <template v-if="!readonly && dropdownStyle !== 'none'">
+    <template v-if="dropdownStyle !== 'none'">
       <slot v-if="slotMode === 'any'" />
       <div v-else
         class="dropdown list-group"
