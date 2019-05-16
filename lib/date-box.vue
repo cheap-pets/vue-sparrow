@@ -1,5 +1,10 @@
 <template>
-  <su-combo-box slot-mode="any" :display-value="inputValue" @clear="onClear">
+  <su-combo-box
+    slot-mode="any"
+    :clearable="clearable"
+    :display-value="inputValue"
+    :readonly="readonly"
+    @clear="onClear">
     <su-calendar
       class="dropdown"
       :style="{ width: dropdownWidth }"
@@ -28,8 +33,8 @@
       event: 'change'
     },
     props: [
-      'displayValue', 'dropdownAlign', 'dropdownDirection', 'dropdownWidth',
-      'format', 'markedDates', 'rangeStart', 'rangeEnd', 'selectMode', 'value'
+      'clearable', 'displayValue', 'dropdownAlign', 'dropdownDirection', 'dropdownWidth',
+      'format', 'markedDates', 'rangeStart', 'rangeEnd', 'readonly', 'selectMode', 'value'
     ],
     data () {
       return {
