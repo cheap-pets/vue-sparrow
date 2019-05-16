@@ -17,7 +17,16 @@
 
   export default {
     name: 'SuListItem',
-    props: ['fields', 'item', 'icon', 'label', 'checked', 'active', 'disabled', 'toggleType'],
+    props: {
+      active: Boolean,
+      checked: Boolean,
+      disabled: Boolean,
+      fields: Object,
+      icon: String,
+      item: [String, Object],
+      label: String,
+      toggleType: String
+    },
     computed: {
       itemIcon () {
         return this.getFieldValue('icon')
