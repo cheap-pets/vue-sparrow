@@ -9,6 +9,7 @@
       :popup-action="inputPopupAction"
       :readonly="inputReadonly"
       :value="inputValue"
+      @focus="onFoucs"
       @input="onInput">
     <a v-if="clearable && inputValue" popup-action="close" toggle-type="clear" @click="clear" />
     <a v-if="toggleType" popup-action="toggle" :toggle-type="toggleType === true ? 'expand' : toggleType" />
@@ -169,7 +170,11 @@
       removeOption (value) {
         //
       },
+      onFoucs (event) {
+        this.$emit('focus', event, this)
+      },
       onInput (event) {
+        this.$emit('input', event, this)
         this.$emit('change', event.target.value, this)
       },
       onOptionClick ({ label, value, option }) {
