@@ -17,7 +17,7 @@
       <slot v-if="slotMode === 'any'" />
       <div v-else
         class="dropdown list-group"
-        :style="{ width: dropdownWidth }"
+        :style="{ width: dropdownWidth, maxHeight: dropdownHeight }"
         :dropdown-align="dropdownAlign"
         :dropdown-direction="dropdownDirection">
         <slot>
@@ -54,6 +54,7 @@
         default: 'justify'
       },
       dropdownDirection: String,
+      dropdownHeight: String,
       dropdownStyle: {
         type: String,
         default: 'dropdownList',
