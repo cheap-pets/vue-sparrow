@@ -14,7 +14,8 @@
     <a popup-action="toggle" :toggle-type="toggleType" />
     <template v-if="!readonly && dropdownStyle !== 'none'">
       <slot v-if="slotMode === 'any'" />
-      <div v-else class="dropdown list-group"
+      <div v-else
+        class="dropdown list-group"
         :style="{ width: dropdownWidth }"
         :dropdown-align="dropdownAlign"
         :dropdown-direction="dropdownDirection">
@@ -169,7 +170,7 @@
         //
       },
       onInput (event) {
-        this.$emit('input', event.target.value, this)
+        this.$emit('change', event.target.value, this)
       },
       onOptionClick ({ label, value, option }) {
         this.$emit('optionclick', option || { label, value })
@@ -178,20 +179,20 @@
           if (idx !== -1) this.localValue.splice(idx, 1)
           else this.localValue.push(value)
           this.resetInputValue()
-          this.$emit('change', this.localValue)
+          this.$emit('change', this.localValue, this)
         } else {
           this.collapse()
           if (this.localValue !== value) {
             this.localValue = value
             this.resetInputValue()
-            this.$emit('change', value)
+            this.$emit('change', value, this)
           }
         }
       },
       clear () {
         this.setLocalValue(null)
         this.$emit('clear')
-        this.$emit('change', this.localValue)
+        this.$emit('change', this.localValue, this)
       },
       expand () {
         this.$emit('expand', this)

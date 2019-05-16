@@ -3,6 +3,7 @@
     slot-mode="any"
     :clearable="clearable"
     :display-value="inputValue"
+    :placeholder="placeholder"
     :readonly="readonly"
     @clear="onClear">
     <su-calendar
@@ -33,8 +34,8 @@
       event: 'change'
     },
     props: [
-      'clearable', 'displayValue', 'dropdownAlign', 'dropdownDirection', 'dropdownWidth',
-      'format', 'markedDates', 'rangeStart', 'rangeEnd', 'readonly', 'selectMode', 'value'
+      'clearable', 'displayValue', 'dropdownAlign', 'dropdownDirection', 'dropdownWidth', 'format',
+      'markedDates', 'placeholder', 'rangeStart', 'rangeEnd', 'readonly', 'selectMode', 'value'
     ],
     data () {
       return {
