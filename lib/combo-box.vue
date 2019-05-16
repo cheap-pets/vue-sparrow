@@ -10,8 +10,8 @@
       :readonly="inputReadonly"
       :value="inputValue"
       @input="onInput">
-    <a v-if="buttons" popup-action="close" toggle-type="clear" @click="clear" />
-    <a popup-action="toggle" :toggle-type="toggleType" />
+    <a v-if="clearable && inputValue" popup-action="close" toggle-type="clear" @click="clear" />
+    <a v-if="toggleType" popup-action="toggle" :toggle-type="toggleType === true ? 'expand' : toggleType" />
     <template v-if="!readonly && dropdownStyle !== 'none'">
       <slot v-if="slotMode === 'any'" />
       <div v-else
@@ -84,7 +84,7 @@
         default: ','
       },
       toggleType: {
-        type: String,
+        type: [Boolean, String],
         default: 'expand'
       },
       value: [Array, String, Number]
@@ -98,7 +98,7 @@
     },
     computed: {
       buttons () {
-        return !this.clearable || this.readonly || !this.inputValue
+        return !this.clearable || this.readonly || !this.inputValue || this.toggleType === false
           ? undefined
           : '2'
       },
