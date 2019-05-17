@@ -198,6 +198,7 @@
         this.$emit('focus', event, this)
       },
       onInput (event) {
+        this.inputValue = event.target.value
         this.$emit('input', event, this)
         this.$emit('change', event.target.value, this)
       },
