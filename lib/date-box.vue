@@ -3,18 +3,33 @@
     slot-mode="any"
     :clearable="clearable"
     :display-value="inputValue"
+    :dropdown-style="dropdownStyle"
     :placeholder="placeholder"
     :readonly="readonly"
     @clear="onClear">
-    <su-calendar
+    <div v-if="isDrawer" class="sub-mask" popup-action="close">
+      <su-calendar
+        class="drawer"
+        :drawer-from="popupPosition"
+        :style="{ height: popupHeight, minHeight: '300px' }"
+        :select-mode="selectMode"
+        :value="localValue"
+        :range-start="rangeStart"
+        :range-end="rangeEnd"
+        :marked-dates="markedDates"
+        :dropdown-align="dropdownAlign || 'justify'"
+        @change="onChange"
+        @navigate="onNavigate" />
+    </div>
+    <su-calendar v-else
       class="dropdown"
-      :style="{ width: dropdownWidth }"
+      :style="{ height: popupHeight, width: popupWidth }"
       :select-mode="selectMode"
       :value="localValue"
       :range-start="rangeStart"
       :range-end="rangeEnd"
       :marked-dates="markedDates"
-      :dropdown-direction="dropdownDirection"
+      :dropdown-direction="popupPosition"
       :dropdown-align="dropdownAlign || 'justify'"
       @change="onChange"
       @navigate="onNavigate" />
@@ -33,10 +48,47 @@
       prop: 'value',
       event: 'change'
     },
-    props: [
-      'clearable', 'displayValue', 'dropdownAlign', 'dropdownDirection', 'dropdownWidth', 'format',
-      'markedDates', 'placeholder', 'rangeStart', 'rangeEnd', 'readonly', 'selectMode', 'value'
-    ],
+    props: {
+      clearable: {
+        type: Boolean,
+        default: true
+      },
+      displayValue: String,
+      dropdownAlign: {
+        type: String,
+        default: 'justify'
+      },
+      dropdownStyle: {
+        type: String,
+        default: 'dropdownList',
+        validator (value) {
+          return ['dropdown', 'dropdownList', 'drawer', 'drawerList', 'none'].indexOf(value) !== -1
+        }
+      },
+      format: String,
+      markedDates: Array,
+      placeholder: String,
+      popupPosition: {
+        type: String,
+        default: 'bottom',
+        validator (value) {
+          return ['top', 'bottom'].indexOf(value) !== -1
+        }
+      },
+      popupHeight: String,
+      popupWidth: String,
+      rangeStart: Date,
+      rangeEnd: Date,
+      readonly: {
+        type: Boolean,
+        default: false
+      },
+      selectMode: {
+        type: String,
+        default: 'date'
+      },
+      value: [String, Date]
+    },
     data () {
       return {
         localValue: null
@@ -47,6 +99,9 @@
         const format = this.format ||
           (this.selectMode === 'year' ? 'YYYY' : this.selectMode === 'month' ? 'YYYY-MM' : 'YYYY-MM-DD')
         return this.displayValue || (this.localValue ? formatDate(this.localValue, format) : '')
+      },
+      isDrawer () {
+        return this.dropdownStyle === 'drawer' || this.dropdownStyle === 'drawerList'
       }
     },
     watch: {

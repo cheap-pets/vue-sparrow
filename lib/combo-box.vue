@@ -15,15 +15,29 @@
     <a v-if="toggleType" popup-action="toggle" :toggle-type="toggleType === true ? 'expand' : toggleType" />
     <template v-if="dropdownStyle !== 'none'">
       <slot v-if="slotMode === 'any'" />
-      <div v-else
-        class="dropdown list-group"
-        :style="{ width: dropdownWidth, maxHeight: dropdownHeight }"
-        :dropdown-align="dropdownAlign"
-        :dropdown-direction="dropdownDirection">
-        <slot>
-          <su-option v-for="(option, index) in options" :key="index" :option="option" />
-        </slot>
-      </div>
+      <template v-else>
+        <div v-if="isDrawer" class="sub-mask" popup-action="close">
+          <div
+            class="drawer list-group"
+            popup-action="none"
+            grid-line
+            :style="{ maxHeight: popupHeight }"
+            :drawer-from="popupPosition">
+            <slot>
+              <su-option v-for="(option, index) in options" :key="index" :option="option" />
+            </slot>
+          </div>
+        </div>
+        <div v-else
+          class="dropdown list-group"
+          :style="{ width: popupWidth, maxHeight: popupHeight }"
+          :dropdown-align="dropdownAlign"
+          :dropdown-direction="popupPosition">
+          <slot>
+            <su-option v-for="(option, index) in options" :key="index" :option="option" />
+          </slot>
+        </div>
+      </template>
     </template>
   </div>
 </template>
@@ -53,16 +67,13 @@
         type: String,
         default: 'justify'
       },
-      dropdownDirection: String,
-      dropdownHeight: String,
       dropdownStyle: {
         type: String,
         default: 'dropdownList',
         validator (value) {
-          return ['dropdownList', 'dropdown', 'none'].indexOf(value) !== -1
+          return ['dropdown', 'dropdownList', 'drawer', 'drawerList', 'none'].indexOf(value) !== -1
         }
       },
-      dropdownWidth: String,
       fields: Object,
       multiple: {
         type: Boolean,
@@ -70,6 +81,15 @@
       },
       options: Array,
       placeholder: String,
+      popupPosition: {
+        type: String,
+        default: 'bottom',
+        validator (value) {
+          return ['top', 'bottom'].indexOf(value) !== -1
+        }
+      },
+      popupHeight: String,
+      popupWidth: String,
       readonly: {
         type: Boolean,
         default: false
@@ -105,12 +125,15 @@
           : '2'
       },
       inputReadonly () {
-        return this.readonly || this.dropdownStyle === 'dropdownList'
+        return this.readonly || this.dropdownStyle === 'dropdownList' || this.dropdownStyle === 'drawerList'
       },
       inputPopupAction () {
-        return this.readonly || this.dropdownStyle === 'dropdown'
+        return this.readonly || this.dropdownStyle === 'dropdown' || this.dropdownStyle === 'drawer'
           ? 'none'
           : 'toggle'
+      },
+      isDrawer () {
+        return this.dropdownStyle === 'drawer' || this.dropdownStyle === 'drawerList'
       }
     },
     watch: {
