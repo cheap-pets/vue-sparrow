@@ -3,7 +3,7 @@ export default {
   props: [ 'icon', 'buttonType', 'buttonStyle' ],
   computed: {
     btnClass () {
-      let cls = ['btn']
+      const cls = ['btn']
       if (!this.$slots.default && this.icon) cls.push(this.icon)
       if (['primary', 'secondary', 'success', 'danger'].includes(this.buttonType)) {
         cls.push(`btn-${this.buttonType}`)
