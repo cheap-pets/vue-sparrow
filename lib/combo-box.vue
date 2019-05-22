@@ -187,7 +187,7 @@
       appendOption (option) {
         const idx = this.findOptionIndex(option.value)
         const options = this.storedOptions
-        if (idx !== -1) options[idx].label = options.label
+        if (idx !== -1) options[idx].label = option.label
         else options.push(option)
         this.resetInputValue()
       },
