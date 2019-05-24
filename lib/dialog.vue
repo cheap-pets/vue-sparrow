@@ -1,17 +1,17 @@
 <template>
-  <div class="modal-mask" justify-content="center" :style="{ zIndex: this.zIndex }" @popupopen='onShow' @popupclose='onHide'>
-    <div class="dialog" :style="{ width: this.width, height: this.height }">
+  <div class="modal-mask" justify-content="center" :style="{ zIndex: zIndex }" @popupopen="onShow" @popupclose="onHide">
+    <div class="dialog" :style="{ width: width, height: height }">
       <slot name="header">
-        <div class="dialog-header" v-if="title" :dlg-title="title">
-          <a toggle-type="close" popup-action="close"></a>
+        <div v-if="title" class="dialog-header" :dlg-title="title">
+          <a toggle-type="close" popup-action="close" />
         </div>
       </slot>
       <div class="dialog-body">
-        <slot></slot>
+        <slot />
       </div>
       <slot name="footer">
-        <div class="dialog-footer" v-if="buttons">
-          <button v-for="btn in btns" :key="btn.caption" class="btn" :class="btn.className" @click="onButtonClick(btn)">
+        <div v-if="buttons" class="dialog-footer">
+          <button v-for="(btn, index) in btns" :key="index" :class="['btn', btn.className]" @click="onButtonClick(btn)">
             {{ btn.caption }}
           </button>
         </div>
