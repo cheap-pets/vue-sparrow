@@ -10,6 +10,7 @@
     <div v-if="isDrawer" class="sub-mask" popup-action="close">
       <su-calendar
         class="drawer"
+        popup-action="none"
         :drawer-from="popupPosition"
         :style="{ height: popupHeight, minHeight: '300px' }"
         :select-mode="selectMode"

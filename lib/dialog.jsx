@@ -73,9 +73,9 @@ class Dialog {
       },
       methods: {
         show (options = {}) {
-          for (let key of Object.keys(options)) {
+          Object.keys(options).forEach(key => {
             this[key] = options[key]
-          }
+          })
           if (!this.$el && !this.$parent) {
             this.$mount()
             document.body.appendChild(this.$el)

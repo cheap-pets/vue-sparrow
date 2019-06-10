@@ -381,7 +381,7 @@
       onDateCellClick (cell) {
         if (cell.outOfRange) return
         this.naviDate = cell.date
-        if (this.year !== cell.year || this.month !== cell.month || this.date !== cell.month) {
+        if (this.year !== cell.year || this.month !== cell.month || this.date !== cell.date || !this.value) {
           const value = new Date(cell.year, cell.month, cell.date)
           this.$emit('change', value, cell.year, cell.month, cell.date)
         }
