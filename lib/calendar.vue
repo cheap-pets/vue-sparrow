@@ -194,14 +194,14 @@
       value (v) {
         this.resetDate(v)
       },
-      rangeStart (v) {
-        this.resetDate(this.value)
+      rangeStart () {
+        this.updateDateCells()
       },
-      rangeEnd (v) {
-        this.resetDate(this.value)
+      rangeEnd () {
+        this.updateDateCells()
       },
-      markedDates (v) {
-        this.resetDate(this.value)
+      markedDates () {
+        this.updateDateCells()
       }
     },
     mounted () {
