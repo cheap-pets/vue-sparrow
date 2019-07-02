@@ -184,6 +184,7 @@ Dialog._messageDialog = new Dialog({
 Dialog.messageBox = function ({ title = '提示', message, buttons = '确定', primaryButton = '确定', danger, callback }) {
   const dlg = this._messageDialog
   dlg.$off('buttonclick')
+  dlg.$off('hide')
   dlg.show({
     title,
     buttons,
@@ -193,7 +194,10 @@ Dialog.messageBox = function ({ title = '提示', message, buttons = '确定', p
   })
   dlg.$once('buttonclick', function (button) {
     if (callback) callback(button)
-    this.hide()
+    hide(dlg.$el, true)
+  })
+  dlg.$once('hide', function () {
+    if (callback) callback()
   })
 }
 
