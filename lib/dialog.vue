@@ -52,11 +52,15 @@
         this.$emit('hide', event, this)
       },
       show () {
-        setTimeout(() => {
+        this._delayShowTimer = setTimeout(() => {
           show(this.$el)
         }, 10)
       },
       hide () {
+        if (this._delayShowTimer) {
+          clearTimeout(this._delayShowTimer)
+          delete this._delayShowTimer
+        }
         setTimeout(() => {
           hide(this.$el)
         }, 10)
