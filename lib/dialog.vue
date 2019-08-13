@@ -1,5 +1,11 @@
 <template>
-  <div class="modal-mask" justify-content="center" :style="{ zIndex: zIndex }" @popupopen="onShow" @popupclose="onHide">
+  <div
+    class="modal-mask"
+    justify-content="center"
+    :style="{ zIndex: zIndex }"
+    :popup-action="maskAction"
+    @popupopen="onShow"
+    @popupclose="onHide">
     <div class="dialog" :style="{ width: width, height: height }">
       <slot name="header">
         <div v-if="title" class="dialog-header" :dlg-title="title">
@@ -25,7 +31,7 @@
 
   export default {
     name: 'SuDialog',
-    props: ['zIndex', 'height', 'width', 'title', 'buttons', 'primaryButton'],
+    props: ['zIndex', 'height', 'width', 'title', 'buttons', 'primaryButton', 'maskAction'],
     computed: {
       btns () {
         const { buttons, primaryButton } = this
