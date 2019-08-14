@@ -1,0 +1,70 @@
+.tab-group {
+  height: $(BAR_HEIGHT)px;
+  display: flex;
+  flex-wrap: nowrap;
+
+  & > .tab-group-item {
+    position: relative;
+    display: flex;
+    flex: auto;
+    align-items: center;
+    width: 10px;
+    justify-content: center;
+    cursor: default;
+    padding-top: 4px;
+    border-bottom: 4px solid transparent;
+
+    &[toggled] {
+      color: $CLR_PRIMARY;
+      font-weight: 600;
+      border-color: $CLR_PRIMARY;
+    }
+
+    &:hover {
+      color: $CLR_PRIMARY_4;
+    }
+
+    &[disabled] {
+      color: $CLR_GREY;
+      border-color: transparent;
+    }
+
+    @mixin text-ellipsis;
+  }
+
+  & > .btn {
+    height: auto;
+
+    &.icon {
+      width: 40px;
+    }
+  }
+
+  
+  &.inline {
+    display: inline-flex;
+
+    & > .tab-group-item {
+      flex: none;
+      width: auto;
+      padding-left: calc($UNIT_SIZE * 2)px;
+      padding-right: calc($UNIT_SIZE * 2)px;
+    }
+  }
+
+  &[grid-line] {
+    & > .tab-group-item:not(:first-child)::before {
+      display: block;
+      position: absolute;
+      left: 0;
+      width: 1px;
+      height: calc($BAR_HEIGHT - 2 * $UNIT_SIZE)px;
+      background-color: rgba(0, 0, 0, .1);
+      content: '';
+    }
+  }
+}
+
+.bar > .tab-group {
+  height: 100%;
+}

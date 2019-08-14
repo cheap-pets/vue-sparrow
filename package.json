@@ -10,6 +10,7 @@
     "lib"
   ],
   "devDependencies": {
+    "@ant-design/colors": "^3.1.0",
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "autoprefixer": "^9.6.1",
@@ -17,6 +18,20 @@
     "core-js": "^3.2.1",
     "lodash.isdate": "^4.0.1",
     "lodash.isstring": "^4.0.1",
+    "postcss": "^7.0.17",
+    "postcss-calc": "^7.0.1",
+    "postcss-clean": "^1.1.0",
+    "postcss-cli": "^6.1.2",
+    "postcss-conditionals": "^2.1.0",
+    "postcss-each": "^0.10.0",
+    "postcss-for": "^2.1.1",
+    "postcss-import": "^12.0.1",
+    "postcss-mix-color": "^0.1.6",
+    "postcss-mixins": "^6.2.1",
+    "postcss-nested": "^4.1.2",
+    "postcss-selector-not": "^4.0.0",
+    "postcss-simple-vars": "^5.0.2",
+    "postcss-unprefix": "^2.1.4",
     "rollup": "^1.19.4",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.2",
@@ -25,9 +40,5 @@
     "rollup-plugin-vue": "^5.0.1",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
-  },
-  "dependencies": {
-    "@ant-design/colors": "^3.1.0",
-    "jss": "^9.8.7"
   }
 }

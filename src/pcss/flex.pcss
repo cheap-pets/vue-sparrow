@@ -1,0 +1,61 @@
+.su-tab-box,
+.su-flex-box {
+  display: flex !important;
+  align-items: center;
+}
+
+[inline] {
+  display: inline-flex !important;
+}
+
+.su-tab-box > * {
+  width: 1px;
+  flex: 1 1 auto;
+}
+
+[flex-direction="column"] {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+[flex-wrap] {
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+[justify-content="center"] {
+  justify-content: center;
+}
+
+[align-items="flex-start"] {
+  align-items: flex-start;
+}
+
+[align-items="center"] {
+  align-items: center;
+}
+
+[align-items="stretch"] {
+  align-items: stretch;
+}
+
+[flex-auto] {
+  flex: 1 1 auto !important;
+}
+
+[flex-none] {
+  flex: 0 0 none !important;
+}
+
+.su-flex-divider {
+  flex: none;
+  height: $(UNIT_SIZE)px;
+  width: $(UNIT_SIZE)px;
+}
+
+[flex-left] {
+  margin-right: auto;
+}
+[flex-right] {
+  margin-left: auto;
+}

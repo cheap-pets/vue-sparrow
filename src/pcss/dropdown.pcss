@@ -1,0 +1,68 @@
+.dropdown-group {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+
+  &.block {
+    display: block;
+  }
+
+  & > .dropdown {
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    visibility: hidden;
+    max-height: 0;
+    overflow: hidden;
+    background-color: #fff;
+    top: 100%;
+    margin-top: 4px;
+    transition: all .1s ease-in-out;
+
+    &[dropdown-direction="top"] {
+      top: auto;
+      bottom: 100%;
+      margin-top: 0;
+      margin-bottom: 4px;
+    }
+    &[dropdown-align="left"] {
+      right: auto;
+      left: 0;
+    }
+    &[dropdown-align="right"] {
+      right: 0;
+      left: auto;
+    }
+    &[dropdown-align="justify"] {
+      right: 0;
+    }
+
+    @mixin shadow2;
+  }
+
+  &[sparrow-popup="popup"] > .dropdown {
+    max-height: 400px;
+    overflow: auto;
+    visibility: visible;
+
+    &.list-group {
+      max-height: 300px;
+    }
+  }
+
+  &[sparrow-popup="popup"] {
+    & [toggle-type="expand"]:after {
+      transform: rotate(-180deg);
+    }
+  }
+
+  &.input-box {
+    &[sparrow-popup="popup"] > input {
+      border-color: $CLR_PRIMARY;
+      box-shadow: inset 0 0 1px 1px $CLR_PRIMARY_3;
+    }
+    & > .dropdown {
+      right: 0;
+    }
+  }
+}

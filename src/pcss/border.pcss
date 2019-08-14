@@ -1,0 +1,49 @@
+$borderColor: rgba(0, 0, 0, .05);
+
+.outline {
+  border: 1px solid $borderColor;
+  
+  &.dashed {
+    border-style: dashed;
+  }
+  &.dotted {
+    border-style: dotted;
+  }
+}
+
+[border-none] {
+  border: 0;
+}
+
+[border-all] {
+  border: 1px solid $borderColor;
+}
+
+[border-top] {
+  border-top: 1px solid $borderColor;
+}
+
+[border-bottom] {
+  border-bottom: 1px solid $borderColor;
+}
+
+[border-left] {
+  border-left: 1px solid $borderColor;
+}
+
+[border-right] {
+  border-right: 1px solid $borderColor;
+}
+
+.header-line {
+  border-bottom: 2px solid $CLR_PRIMARY;
+}
+
+.divider {
+  padding: calc($UNIT_SIZE / 2)px;
+  background-color: rgba(0, 0, 0, .05);
+
+  &[transparent] {
+    background: transparent;
+  }
+}

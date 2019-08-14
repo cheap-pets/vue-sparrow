@@ -1,0 +1,56 @@
+.su-link {
+  display: inline;
+  text-decoration: none;
+  color: $BUTTON_COLOR_NORMAL;
+  border-bottom: 0 solid $BUTTON_COLOR_NORMAL;
+
+  &[link-type="primary"] {
+    border-bottom-color: $BUTTON_COLOR_PRIMARY;
+    color: $BUTTON_COLOR_PRIMARY;
+  }
+  
+  &[link-type="secondary"] {
+    border-bottom-color: $BUTTON_COLOR_PRIMARY;
+    color: $BUTTON_COLOR_SECONDARY;
+  }
+  &[link-type="submit"] {
+    border-bottom-color: $BUTTON_COLOR_SUBMIT;
+    color: $BUTTON_COLOR_SUBMIT;
+  }
+  &[link-type="danger"] {
+    border-bottom-color: $BUTTON_COLOR_DANGER;
+    color: $BUTTON_COLOR_DANGER;
+  }
+
+  &[link-underline="always"] {
+    border-bottom-width: 1px;
+  }
+
+  &:hover {
+    border-bottom: 2px solid $BUTTON_COLOR_PRIMARY_HOVER;
+    color: $BUTTON_COLOR_PRIMARY_HOVER;
+    cursor: pointer;
+
+    &[link-type="secondary"] {
+      border-bottom-color: $BUTTON_COLOR_PRIMARY_HOVER;
+      color: $BUTTON_COLOR_SECONDARY_HOVER;
+    }
+    &[link-type="submit"] {
+      border-bottom-color: $BUTTON_COLOR_SUBMIT_HOVER;
+      color: $BUTTON_COLOR_SUBMIT_HOVER;
+    }
+    &[link-type="danger"] {
+      border-bottom-color: $BUTTON_COLOR_DANGER_HOVER;
+      color: $BUTTON_COLOR_DANGER_HOVER;
+    }
+  }
+  
+  &[disabled],
+  &[link-underline="none"] {
+    border-bottom-width: 0;
+  }
+  &[disabled] {
+    cursor: not-allowed;
+    color: $BUTTON_COLOR_NORMAL_DISABLED;
+  }
+}

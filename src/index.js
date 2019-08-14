@@ -1,22 +1,20 @@
-import Button from './button.jsx'
-import DropdownButton from './dropdown-button.vue'
-import ButtonGroup from './button-group.vue'
-import ListItem from './list-item.vue'
-import ListHeader from './list-header.vue'
-import List from './list.vue'
-import ComboBox from './combo-box.vue'
-import ComboBoxOption from './combo-box-option.vue'
-import SearchBox from './search-box.vue'
-import Bar from './bar.vue'
-import ColumnList from './column-list.vue'
-import FormGroup from './form-group.vue'
-import FormField from './form-field.vue'
-import ExpandPanel from './expand-panel.vue'
-import ModalDialog from './dialog.vue'
-import Calendar from './calendar.vue'
-import DateBox from './date-box.vue'
-import installModalMask from './modal-mask.jsx'
-import installDialog from './dialog.jsx'
+import Button from './components/button.jsx'
+import DropdownButton from './components/dropdown-button.vue'
+import ButtonGroup from './components/button-group.vue'
+import ListItem from './components/list-item.vue'
+import ListHeader from './components/list-header.vue'
+import List from './components/list.vue'
+import ComboBox from './components/combo-box.vue'
+import ComboBoxOption from './components/combo-box-option.vue'
+import SearchBox from './components/search-box.vue'
+import Bar from './components/bar.vue'
+import ColumnList from './components/column-list.vue'
+import FormGroup from './components/form-group.vue'
+import FormField from './components/form-field.vue'
+import ExpandPanel from './components/expand-panel.vue'
+import ModalDialog from './components/dialog.vue'
+import Calendar from './components/calendar.vue'
+import DateBox from './components/date-box.vue'
 
 function install (Vue) {
   Vue.component('su-button', Button)
@@ -38,18 +36,8 @@ function install (Vue) {
   Vue.component('su-date-box', DateBox)
 }
 
-let Dialog
-let ModalMask
-if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue)
-  Dialog = installDialog(window.Vue)
-  ModalMask = installModalMask(window.Vue)
-}
+if (typeof window !== 'undefined' && window.Vue) install(window.Vue)
 
 export {
-  install,
-  installDialog,
-  installModalMask,
-  Dialog,
-  ModalMask
+  install
 }

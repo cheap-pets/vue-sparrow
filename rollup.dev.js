@@ -5,11 +5,20 @@ import commonjs from 'rollup-plugin-commonjs'
 
 import postcss from 'rollup-plugin-postcss'
 import postcssAutoprefixer from 'autoprefixer'
-import postcssImport from 'postcss-import'
+import postcssCalc from 'postcss-calc'
 import postcssClean from 'postcss-clean'
+import postcssConditionals from 'postcss-conditionals'
+import postcssEach from 'postcss-each'
+import postcssFor from 'postcss-for'
+import postcssImport from 'postcss-import'
+import postcssMixins from 'postcss-mixins'
+import postcssMixColor from 'postcss-mix-color'
 import postcssNested from 'postcss-nested'
+import postcssSelectorNot from 'postcss-selector-not'
 import postcssVars from 'postcss-simple-vars'
 import postcssUnprefix from 'postcss-unprefix'
+
+import variables from './src/style-variables'
 
 export default {
   input: 'src/index.js',
@@ -21,8 +30,17 @@ export default {
       plugins: [
         postcssImport,
         postcssUnprefix,
-        postcssVars,
+        postcssSelectorNot,
+        postcssMixins,
+        postcssEach,
+        postcssVars({
+          variables
+        }),
+        postcssCalc,
         postcssNested,
+        postcssFor,
+        postcssConditionals,
+        postcssMixColor,
         postcssAutoprefixer,
         postcssClean({
           format: {

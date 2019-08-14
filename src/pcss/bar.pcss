@@ -1,0 +1,122 @@
+.bar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  height: $(BAR_HEIGHT)px;
+  overflow: visible;
+  padding: 0 calc($UNIT_SIZE / 2)px;
+
+  & > * {
+    flex: 0 0 auto;
+  }
+
+  & > *:not(:last-child) {
+    margin-right: 5px;
+  }
+
+  & > .stretch {
+    flex: 1 1 auto;
+  }
+
+  /* & .btn {
+    height: 30px;
+    line-height: 28px;
+  }
+  & .btn.icon {
+    width: 30px;
+  }
+
+  & > input {
+    height: 30px;
+  }
+  & .input-box {
+    & > input {
+      height: 30px;
+    }
+    & > .icon,
+    & > [toggle-type] {
+      height: 28px;
+      line-height: 28px;
+      width: 28px;
+    }
+  } */
+
+  &.toolbar {
+    background-color: $CLR_GREY_1;
+  }
+
+  &.tab {
+    padding: 0;
+    & > *,
+    & > .input-box > input {
+      margin-right: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    & > label {
+      line-height: 40px;
+    }
+    & > .btn,
+    & > .btn.icon {
+      line-height: 40px;
+
+      &.outline {
+        line-height: 38px;
+      }
+
+      &.icon {
+        width: 40px;
+      }
+    }
+    & .input-box > input {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &.tab-btn-group {
+    align-items: flex-end;
+
+    &.align-top {
+      align-items: flex-start;
+    }
+  }
+
+  & > .tab-btn-group {
+    align-self: flex-end;
+
+    &.align-top {
+      align-self: flex-start;
+    }
+  }
+
+  & > .align-center {
+    align-self: center;
+  }
+}
+
+.tab {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  &.inline {
+    display: inline-flex;
+  }
+  & > * {
+    flex: 1 1 auto;
+  }
+  & > .fixed {
+    flex: 0 0 auto;
+  }
+}
+
+.tab-btn-group {
+  overflow: hidden;
+  & > .btn {
+    min-width: 80px;
+    border-radius: 4px 4px 0 0;
+    margin-right: 5px;
+    box-shadow: none;
+  }
+}

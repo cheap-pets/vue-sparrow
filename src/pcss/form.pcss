@@ -1,0 +1,132 @@
+.su-form-field,
+.su-form-inline {
+  & > label {
+    display: inline-block;
+    line-height: $(INPUT_HEIGHT)px;
+    font-size: 1rem;
+    color: $TEXT_COLOR_GREY;
+  }
+}
+
+.su-form-field {
+  display: block;
+
+  &[inline] {
+    display: inline-block;
+  }
+
+  & > * {
+    margin-right: $(UNIT_SIZE)px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  & > label:first-child {
+    float: left;
+    margin-right: calc($UNIT_SIZE * 1.5)px;
+
+    &:before {
+      display: inline-block;
+      width: $(UNIT_SIZE)px;
+      text-align: left;
+      color: $COLOR_DANGER;
+      content: "*";
+      visibility:hidden;
+    }
+
+    @mixin text-ellipsis;
+  }
+
+  &[is-invalid] {
+    & > label {
+      color: $COLOR_DANGER;
+    }
+    & .su-input {
+      border-color: $COLOR_DANGER;
+      &:focus {
+        box-shadow: inset 0 0 1px 1px $SHADOW_COLOR_DANGER;
+      }
+    }
+  }
+}
+
+.su-form-inline,
+.su-form-field {
+  margin-bottom: calc($UNIT_SIZE * 2)px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.su-form {
+  & .su-form-field {
+    display: flex;
+  }
+
+  &[label-align="right"] label:first-child {
+    min-width: 80px;
+    text-align: right;
+  }
+
+  &[label-align="top"] {
+    & .su-form-field {
+      display: block;
+      & > label:first-child {
+        display: block;
+        float: none;
+      }
+      & > .su-input,
+      & > .su-input-box {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+[label-align="top"],
+[required-placeholder="auto"] {
+  & .su-form-field > label:first-child::before {
+    display: none;
+  }
+}
+[required-placeholder="always"] {
+  & .su-form-field > label:first-child::before {
+    display: inline-block;
+  }
+}
+
+.su-form-field[is-required] > label:first-child::before {
+  display: inline-block;
+  visibility: visible;
+}
+
+.su-form-inline {
+  display: flex;
+
+  & > * {
+    margin-bottom: 0;
+    margin-right: $(UNIT_SIZE)px;
+  }
+
+  & > .su-form-field {
+    flex: 1 1 auto;
+    width: 10px;
+    margin-right: calc($UNIT_SIZE * 2)px;
+  }
+
+  & > *:last-child {
+    margin-right: 0;
+  }
+}
+
+.su-form .su-form-field,
+.su-form-inline {
+  & > .su-input,
+  & > .su-input-box {
+    flex: 1 1 auto;
+  }
+}

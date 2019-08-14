@@ -1,0 +1,134 @@
+.list-group {
+  list-style: none;
+  font-size: 1rem;
+  cursor: default;
+
+  &.dropdown {
+    overflow: auto;
+    max-height: 200px;
+    padding: calc($UNIT_SIZE /2)px 0;
+    visibility: visible;
+  }
+}
+
+.list-group-header,
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: $(UNIT_SIZE)px;
+  line-height: 24px;
+
+  &.header-line {
+    padding-bottom: calc($UNIT_SIZE - 2)px;
+  }
+
+  &.indent {
+    padding-left: 32px;
+  }
+
+  &[disabled] {
+    color: $CLR_GREY;
+  }
+
+  & > .icon:first-child,
+  & > [toggle-type]:first-child {
+    display: inline-block;
+    float: left;
+    width: 24px;
+    vertical-align: top;
+    opacity: 0.7;
+  }
+
+  &[toggle-type] {
+    padding-right: 30px;
+    
+    &:after {
+      position: absolute;
+      right: 10px;
+    }
+  }
+
+  @mixin text-ellipsis;
+}
+
+.list-group-header {
+  font-size: 0.857rem;
+  font-weight: 600;
+  background: $CLR_GREY_1;
+}
+
+a.list-group-item,
+a.list-group-header {
+  &:not([disabled]) {
+    &:hover,
+    &:active {
+      color: $CLR_PRIMARY;
+      background: $CLR_GREY_2;
+    }
+    &.active {
+      color: #fff;
+      background: $CLR_PRIMARY;
+    }
+  }
+}
+
+[grid-line] > :not(:first-child)::before {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: $(UNIT_SIZE)px;
+  right: $(UNIT_SIZE)px;
+  height: 1px;
+  background-color: $CLR_GREY_2;
+  content: '';
+}
+
+.alternate > .list-group-item:nth-of-type(even) {
+  background: $CLR_GREY_3;
+}
+
+.dropdown {
+  & > .list-group-header,
+  & > .list-group-item {
+    padding: calc($UNIT_SIZE /2)px $(UNIT_SIZE)px;
+    &.indent {
+      padding-left: 32px;
+    }
+  }
+}
+
+.column-list {
+  & .list-head {
+    margin-bottom: 5px;
+  }
+  & .head-col {
+    padding: 5px 0;
+    border-bottom: 5px solid rgba(0, 0, 0, .15);
+    font-weight: 600;
+    font-size: 0.93rem;
+    color: rgba(0, 0, 0, .5);
+  }
+
+  & .body-col {
+    padding: 5px 0;
+    font-size: 1rem;
+    line-height: 20px;
+    @mixin text-ellipsis;
+  }
+
+  & .list-row {
+    align-items: center;
+  }
+
+  &.alternate > .list-row:nth-of-type(even) {
+    background: rgba(0, 0, 0, .025);
+  }
+
+  & a.list-row:hover:not([disabled]) {
+    background: rgba(0, 0, 0, .08);
+  }
+
+  & .col-divider {
+    width: 10px;
+  }
+}

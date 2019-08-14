@@ -1,0 +1,261 @@
+@import "./mixins/shadow.pcss";
+
+$buttonPaddingY: calc(($buttonHeight - $buttonLineHeight - 2) / 2);
+
+.su-button {
+  position: relative;
+  display: inline-block;
+  height: $(INPUT_HEIGHT)px;
+  padding: $(buttonPaddingY)px 15px;
+  outline: none;
+  border: 1px solid $buttonDefaultColor;
+  border-radius: $(buttonBorderRadius)px;
+  background: #fff;
+  line-height: $(buttonLineHeight)px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 1rem;
+  color: $buttonDefaultColor;
+  cursor: pointer;
+
+  &:not([button-type]),
+  &[button-type="normal"] {
+    &[button-style="link"] {
+      &:hover {
+        color: $buttonDefaultHoverColor;
+      }
+    }
+
+    &[active] {
+      background: $buttonDefaultActiveColor;
+    }
+
+    &:hover {
+      background: $buttonDefaultHoverColor;
+      border-color: $buttonDefaultHoverColor;
+      color: #fff;
+    }
+
+    &[disabled] {
+      &[button-style="link"] {
+        color: $buttonDefaultDisabledColor;
+      }
+      &:not([button-style="link"]) {
+        background: $buttonDefaultDisabledColor;
+        border-color: $buttonDefaultDisabledColor;
+      }
+    }
+  }
+
+  &[button-type="primary"] {
+    color: #fff;
+    background: $buttonPrimaryColor;
+    border-color: $buttonPrimaryColor;
+
+    &[button-style="link"] {
+      color: $buttonPrimaryColor;
+      &:hover {
+        color: $buttonPrimaryHoverColor;
+      }
+    }
+
+    &[button-style="text"],
+    &[button-style="outline"] {
+      color: $buttonPrimaryColor;
+    }
+
+    &[active] {
+      background: $buttonPrimaryActiveColor;
+      border-color: $buttonPrimaryActiveColor;
+    }
+
+    &:hover {
+      background: $buttonPrimaryHoverColor;
+      border-color: $buttonPrimaryHoverColor;
+      color: #fff;
+    }
+
+    &[disabled] {
+      &[button-style="link"] {
+        color: $buttonPrimaryDisabledColor;
+      }
+      &:not([button-style="link"]) {
+        background: $buttonPrimaryDisabledColor;
+        border-color: $buttonPrimaryDisabledColor;
+      }
+    }
+  }
+
+  &[button-type="submit"] {
+    color: #fff;
+    background: $buttonSubmitColor;
+    border-color: $buttonSubmitColor;
+
+    &[button-style="link"] {
+      color: $buttonSubmitColor;
+      &:hover {
+        color: $buttonSubmitHoverColor;
+      }
+    }
+
+    &[button-style="text"],
+    &[button-style="outline"] {
+      color: $buttonSubmitColor;
+    }
+
+    &[active] {
+      background: $buttonSubmitActiveColor;
+      border-color: $buttonSubmitActiveColor;
+    }
+
+    &:hover {
+      background: $buttonSubmitHoverColor;
+      border-color: $buttonSubmitHoverColor;
+      color: #fff;
+    }
+
+    &[disabled] {
+      &[button-style="link"] {
+        color: $buttonSubmitDisabledColor;
+      }
+      &:not([button-style="link"]) {
+        background: $buttonSubmitDisabledColor;
+        border-color: $buttonSubmitDisabledColor;
+      }
+    }
+  }
+
+  &[button-type="danger"] {
+    color: #fff;
+    background: $buttonDangerColor;
+    border-color: $buttonDangerColor;
+
+    &[button-style="link"] {
+      color: $buttonDangerColor;
+      &:hover {
+        color: $buttonDangerHoverColor;
+      }
+    }
+
+    &[button-style="text"],
+    &[button-style="outline"] {
+      color: $buttonDangerColor;
+    }
+
+    &[active] {
+      background: $buttonDangerActiveColor;
+      border-color: $buttonDangerActiveColor;
+    }
+
+    &:hover {
+      background: $buttonDangerHoverColor;
+      border-color: $buttonDangerHoverColor;
+      color: #fff;
+    }
+
+    &[disabled] {
+      &[button-style="link"] {
+        color: $buttonDangerDisabledColor;
+      }
+      &:not([button-style="link"]) {
+        background: $buttonDangerDisabledColor;
+        border-color: $buttonDangerDisabledColor;
+      }
+    }
+  }
+
+  &[button-style="link"],
+  &[button-style="link"]:hover,
+  &[button-style="link"][active],
+  &[button-style="text"] {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+  }
+  &[button-style="outline"] {
+    background: #fff;
+  }
+  &[button-style="link"]:not([disabled]):hover {
+    text-decoration: underline;
+  }
+  &[active] {
+    color: #fff;
+  }
+  &[disabled] {
+    cursor: default;
+    &:not([button-style="link"]) {
+      color: $textLight;
+    }
+  }
+  &:not([disabled]) {
+    @if $buttonShadow {
+      @mixin shadow1;
+    }
+    &[button-style="text"] {
+      box-shadow: none;
+    }
+    &:hover {
+      @if $buttonShadow {
+        @mixin shadow2;
+      }
+    }
+    &[button-style="link"] {
+      box-shadow: none;
+    }
+  }
+
+  /*
+  &:not([button-type]) {
+    background: #fff;
+  }
+  */
+
+  &:empty {
+    width: $(buttonHeight)px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  & > * + span,
+  & > span + * {
+    margin-left: 4px;
+  }
+}
+
+.su-button-group {
+  display: inline-block;
+  position: relative;
+  border-radius: $(buttonBorderRadius)px;
+
+  @if $buttonShadow == 1 {
+    @mixin shadow1;
+  }
+  
+  & > .su-button {
+    float: left;
+    box-shadow: none;
+    z-index : 0;
+
+    &:hover:not([disabled]) {
+      z-index : 1;
+    }
+
+    &:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      &[button-type]:not([button-type="normal"]):not([button-style]):not(:hover):not([active]) {
+        border-left-color: rgba(255, 255, 255, .5);
+      }
+    }
+    &:not(:last-child) {
+      margin-right: -1px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+[button-shape="round"],
+[button-shape="round"] > .su-button {
+  border-radius: calc($buttonHeight / 2)px;
+}

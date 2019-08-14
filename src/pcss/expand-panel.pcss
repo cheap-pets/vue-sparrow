@@ -1,0 +1,13 @@
+.expand-panel {
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, .025);
+  transition: all .2s ease-in-out;
+
+  &[expanded] {
+    max-height: 2000px;
+    overflow: visible;
+    visibility: visible;
+  }
+}

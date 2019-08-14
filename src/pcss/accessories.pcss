@@ -1,0 +1,86 @@
+[toggle-type] {
+  cursor: pointer;
+  &:after {
+    display: inline-block;
+    font-family: 'sparrow-icon';
+    font-style: normal;
+  }
+}
+
+[toggle-type="expand"] {
+  &:after {
+    content: "\e6c0";
+    transition: transform .2s ease-in-out;
+  }
+  &[expanded]:after {
+    transform: rotate(-180deg);
+  }
+}
+
+[toggle-type="close"] {
+  &:after {
+    content: "\e64a";
+    transition: transform .1s ease-in-out;
+  }
+  &:hover::after {
+    transform: scale(1.15);
+  }
+}
+
+[toggle-type="clear"] {
+  &:after {
+    content: "\e636";
+    opacity: 0.5;
+  }
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+[toggle-type="navigate"] {
+  &:after {
+    content: "\e6c2";
+  }
+}
+
+[toggle-type="check"] {
+  &:after {
+    visibility: hidden;
+    content: "\e642";
+  }
+  &[checked]:after {
+    visibility: visible;
+  }
+}
+
+[toggle-type="star"] {
+  &:after {
+    content: "\e771";
+  }
+  &[checked]:after {
+    content: "\e773";
+  }
+}
+
+[toggle-type="checkbox"] {
+  &:after {
+    content: "\e63c";
+  }
+  &[checked]:after {
+    content: "\e63d";
+  }
+}
+
+.primary-badge,
+.secondary-badge,
+.success-badge,
+.warning-badge,
+.danger-badge {
+  display: inline-block;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  line-height: 1;
+  font-size: 0.857rem;
+  box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.25);
+}

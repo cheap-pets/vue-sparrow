@@ -1,25 +1,27 @@
+import '../pcss/button.pcss'
+
 export default {
   name: 'SuButton',
   props: {
     buttonShape: {
       type: String,
-      default: 'rectangle',
+      default: 'normal',
       validator (value) {
-        return ['rectangle', 'round'].indexOf(value) !== -1
+        return ['normal', 'round'].indexOf(value) !== -1
       }
     },
     buttonStyle: {
       type: String,
       default: 'normal',
       validator (value) {
-        return ['normal', 'outline', 'text'].indexOf(value) !== -1
+        return ['normal', 'outline', 'text', 'link'].indexOf(value) !== -1
       }
     },
     buttonType: {
       type: String,
       default: 'normal',
       validator (value) {
-        return ['normal', 'cancel', 'primary', 'secondary', 'success', 'danger'].indexOf(value) !== -1
+        return ['normal', 'primary', 'submit', 'danger'].indexOf(value) !== -1
       }
     },
     icon: String,
