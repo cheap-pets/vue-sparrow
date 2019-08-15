@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "A UI Components Lib for Vue.js",
   "main": "dist/vue-sparrow-ui.js",
-  "module": "dist/vue-sparrow-ui.esm.js",
+  "module": "src/index.js",
   "author": "scrollbar-ww",
   "license": "MIT",
   "files": [
-    "lib"
+    "src",
+    "dist"
   ],
+  "scripts": {
+    "build": "rollup -c",
+    "builddev": "rollup -c --watch"
+  },
   "devDependencies": {
     "@ant-design/colors": "^3.1.0",
     "@babel/core": "^7.5.5",
@@ -36,6 +41,7 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.2",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-terser": "^5.1.1",
     "rollup-plugin-vue": "^5.0.1",
     "vue": "^2.6.10",

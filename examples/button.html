@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../dist/vue-sparrow-ui.css">
+  <script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
+  <script type="text/javascript" src="../dist/vue-sparrow-ui.js"></script>
+  <title>Buttons</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>按钮与链接</h2>
+    <hr>
+    <div>
+      <h3>按钮：样式与状态</h3>
+      <h5>普通按钮 button-type="normal"（亦可省略 button-type="normal）</h5>
+      <div>
+        <su-button button-type="normal">NORMAL</su-button>
+        <su-button button-type="normal" button-style="text">TEXT</su-button>
+        <su-button button-type="normal" button-style="link">LINK</su-button>
+        <su-button button-type="normal" button-style="outline">OUTLINE</su-button>
+        <su-button button-type="normal" active>ACTIVE</su-button>
+        <su-button button-type="normal" disabled>DISABLED</su-button>
+      </div>
+      <h5>主要按钮 button-type="primary"</h5>
+      <div>
+        <a class="su-button w-120" button-type="primary">PRIMARY</a>
+        <a class="su-button w-120" button-type="primary" button-style="text">TEXT</a>
+        <a class="su-button w-120" button-type="primary" button-style="link">LINK</a>
+        <a class="su-button w-120" button-type="primary" button-style="outline">OUTLINE</a>
+        <a class="su-button w-120" button-type="primary" active>ACTIVE</a>
+        <a class="su-button w-120" button-type="primary" disabled>DISABLED</a>
+      </div>
+      <h5>提交按钮 button-type="submit"</h5>
+      <div>
+        <a class="su-button w-120" button-type="submit">SUBMIT</a>
+        <a class="su-button w-120" button-type="submit" button-style="text">TEXT</a>
+        <a class="su-button w-120" button-type="submit" button-style="link">LINK</a>
+        <a class="su-button w-120" button-type="submit" button-style="outline">OUTLINE</a>
+        <a class="su-button w-120" button-type="submit" active>ACTIVE</a>
+        <a class="su-button w-120" button-type="submit" disabled>DISABLED</a>
+      </div>
+      <h5>危险按钮 button-type="danger"</h5>
+      <div>
+        <a class="su-button w-120" button-type="danger">DANGER</a>
+        <a class="su-button w-120" button-type="danger" button-style="text">TEXT</a>
+        <a class="su-button w-120" button-type="danger" button-style="link">LINK</a>
+        <a class="su-button w-120" button-type="danger" button-style="outline">OUTLINE</a>
+        <a class="su-button w-120" button-type="danger" active>ACTIVE</a>
+        <a class="su-button w-120" button-type="danger" disabled>DISABLED</a>
+      </div>
+    </div>
+    <div>
+      <h3>按钮：形状</h3>
+      <h5>圆边按钮</h5>
+      <button class="su-button w-120" button-type="primary" button-shape="round">PRIMARY</button>
+      <button class="su-button w-120" button-type="secondary" button-shape="round">SECONDARY</button>
+      <button class="su-button w-120" button-type="submit" button-shape="round">SUBMIT</button>
+      <button class="su-button icon icon-home" button-shape="round"></button>
+      <button class="su-button icon icon-trash-can" button-type="danger" button-shape="round"></button>
+    </div>
+
+    <div>
+      <h3>按钮：内容</h3>
+      <button class="su-button" button-type="primary">仅文字</button>
+      <button class="su-button icon icon-star" button-type="secondary" title="仅图标"></button>
+      <button class="su-button" title="仅图标">
+        <i class="icon icon-star-half"></i>
+      </button>
+      <button class="su-button" button-type="submit">
+        <span>文字和图标</span><i class="icon icon-safe"></i>
+      </button>
+      <button class="su-button" button-type="danger">
+        <i class="icon icon-home"></i>
+        图标和文字
+      </button>
+    </div>
+    <div>
+      <h3>按钮组</h3>
+      <h5>普通按钮</h5>
+      <div class="su-button-group">
+        <a class="su-button w-120">按钮一</a>
+        <a class="su-button w-120">按钮二</a>
+        <a class="su-button w-120">按钮三</a>
+      </div>
+      <h5>主要按钮</h5>
+      <div class="su-button-group">
+        <a class="su-button w-120" button-type="primary">按钮一</a>
+        <a class="su-button w-120" button-type="primary">按钮二</a>
+        <a class="su-button w-120" button-type="primary">按钮三</a>
+      </div>
+      <h5>圆角样式</h5>
+      <div class="su-button-group" button-shape="round">
+        <a class="su-button w-120" button-type="primary" button-style="outline">按钮一</a>
+        <a class="su-button w-120" button-type="primary" button-style="outline">按钮二</a>
+        <a class="su-button w-120" button-type="primary" button-style="outline">按钮三</a>
+      </div>
+      <h5>分裂按钮</h5>
+      <div class="su-button-group">
+        <a class="su-button" button-type="primary">分裂按钮</a>
+        <a class="su-button" button-type="primary"></a>
+      </div>
+      <h5>均分充满</h5>
+      <div class="su-button-group su-tab-box">
+        <a class="su-button" button-type="primary">按钮一</a>
+        <a class="su-button" button-type="primary">按钮二</a>
+        <a class="su-button" button-type="primary">按钮三</a>
+      </div>
+      <p></p>
+      <div class="su-button-group su-tab-box">
+        <a class="su-button" button-type="primary" button-style="text">按钮一</a>
+        <a class="su-button" button-type="primary" button-style="text">按钮二</a>
+        <a class="su-button" button-type="primary" button-style="text">按钮三</a>
+      </div>
+    </div>
+    <div>
+      <h3>链接</h3>
+      <h5>普通样式</h5>
+      <div>
+        <a class="su-link">链接</a>
+        <a class="su-link" link-type="primary">主要链接</a>
+        <a class="su-link" link-type="secondary">次要链接</a>
+        <a class="su-link" link-type="submit">提交链接</a>
+        <a class="su-link" link-type="danger">危险链接</a>
+        <a class="su-link" disabled>禁用状态</a>
+      </div>
+      <h5>始终下划线</h5>
+      <div>
+        <a class="su-link" link-underline="always">链接</a>
+        <a class="su-link" link-type="primary" link-underline="always">主要链接</a>
+        <a class="su-link" link-type="secondary" link-underline="always">次要链接</a>
+        <a class="su-link" link-type="submit" link-underline="always">提交链接</a>
+        <a class="su-link" link-type="danger" link-underline="always">危险链接</a>
+        <a class="su-link" link-underline="always" disabled>禁用状态</a>
+      </div>
+      <h5>没有下划线</h5>
+      <div>
+        <a class="su-link" link-underline="none">链接</a>
+        <a class="su-link" link-type="primary" link-underline="none">主要链接</a>
+        <a class="su-link" link-type="secondary" link-underline="none">次要链接</a>
+        <a class="su-link" link-type="submit" link-underline="none">提交链接</a>
+        <a class="su-link" link-type="danger" link-underline="none">危险链接</a>
+        <a class="su-link" link-underline="always" disabled>禁用状态</a>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    const view = new Vue({
+      el: '#app'
+    })
+  </script>
+</body>

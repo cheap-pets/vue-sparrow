@@ -1,25 +1,21 @@
 const { generate } = require('@ant-design/colors')
 
-const grey = [
-  '#f2f2f2',
-  '#e6e6e6',
-  '#d9d9d9',
-  '#cccccc',
-  '#bfbfbf',
-  '#b2b2b2',
-  '#8c8c8c',
-  '#666666',
-  '#404040',
-  '#1a1a1a'
-]
-
+const grey = generate('#b2b2b2')
+/*
+'#f2f2f2', '#e6e6e6', '#d9d9d9', '#cccccc', '#bfbfbf',
+'#b2b2b2', '#8c8c8c', '#666666', '#404040', '#1a1a1a'
+*/
 let _primaryColor, _successColor, _warningColor, _dangerColor, _infoColor
 
 const variables = {
+  /* document */
+  documentFontSizePx: 14,
+
   /* button */
-  buttonHeight: 32,
-  buttonLineHeight: 20,
-  buttonBorderRadius: 2,
+  buttonHeightPx: 32,
+  buttonLineHeightPx: 20,
+  buttonBorderRadiusPx: 2,
+  buttonFontSize: '1rem',
   buttonShadow: 1,
   buttonDefaultColor: grey[7],
   buttonDefaultHoverColor: grey[6],
@@ -27,8 +23,9 @@ const variables = {
   buttonDefaultDisabledColor: grey[4],
 
   /* input */
-  inputHeight: 32,
-  inputBorderRadius: 2,
+  inputHeightPx: 32,
+  inputBorderRadiusPx: 2,
+  inputFontSize: '1rem',
   inputBorderColor: grey[5],
   inputReadonlyBackground: '#feffe6',
   inputDisabledBackground: grey[1],

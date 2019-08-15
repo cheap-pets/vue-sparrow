@@ -1,17 +1,15 @@
 @import "./mixins/shadow.pcss";
 
-$buttonPaddingY: calc(($buttonHeight - $buttonLineHeight - 2) / 2);
-
 .su-button {
   position: relative;
   display: inline-block;
-  height: $(INPUT_HEIGHT)px;
-  padding: $(buttonPaddingY)px 15px;
+  height: $(buttonHeightPx)px;
+  padding: calc(($buttonHeightPx - $buttonLineHeightPx - 2) / 2)px 15px;
   outline: none;
   border: 1px solid $buttonDefaultColor;
-  border-radius: $(buttonBorderRadius)px;
+  border-radius: $(buttonBorderRadiusPx)px;
   background: #fff;
-  line-height: $(buttonLineHeight)px;
+  line-height: $(buttonLineHeightPx)px;
   text-decoration: none;
   text-align: center;
   font-size: 1rem;
@@ -209,9 +207,9 @@ $buttonPaddingY: calc(($buttonHeight - $buttonLineHeight - 2) / 2);
     background: #fff;
   }
   */
-
+  &[icon-only],
   &:empty {
-    width: $(buttonHeight)px;
+    width: $(buttonHeightPx)px;
     padding-left: 0;
     padding-right: 0;
   }
@@ -225,7 +223,7 @@ $buttonPaddingY: calc(($buttonHeight - $buttonLineHeight - 2) / 2);
 .su-button-group {
   display: inline-block;
   position: relative;
-  border-radius: $(buttonBorderRadius)px;
+  border-radius: $(buttonBorderRadiusPx)px;
 
   @if $buttonShadow == 1 {
     @mixin shadow1;
@@ -257,5 +255,5 @@ $buttonPaddingY: calc(($buttonHeight - $buttonLineHeight - 2) / 2);
 
 [button-shape="round"],
 [button-shape="round"] > .su-button {
-  border-radius: calc($buttonHeight / 2)px;
+  border-radius: calc($buttonHeightPx / 2)px;
 }
