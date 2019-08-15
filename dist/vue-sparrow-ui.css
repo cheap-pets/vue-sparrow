@@ -29,6 +29,9 @@ html {
   color: #666;
   cursor: pointer;
 }
+.su-button::before {
+  content: '\00a0';
+}
 .su-button:not([button-type])[button-style=link]:hover,
 .su-button[button-type=normal][button-style=link]:hover {
   color: #8c8c8c;
@@ -208,7 +211,8 @@ html {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-.su-button-group > .su-button:not(:first-child)[button-type]:not([button-type=normal]):not([button-style]):not(:hover):not([active]) {
+.su-button-group > .su-button:not(:first-child)[button-type]:not([button-type=normal]):not(:hover):not([active]):not([button-style]),
+.su-button-group > .su-button:not(:first-child)[button-type]:not([button-type=normal]):not(:hover):not([active])[button-style=normal] {
   border-left-color: rgba(255,255,255,.5);
 }
 .su-button-group > .su-button:not(:last-child) {

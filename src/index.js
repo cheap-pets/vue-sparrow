@@ -1,6 +1,6 @@
 import './pcss/document.pcss'
 
-import Button from './components/button.vue'
+import Button from './components/button.jsx'
 // import DropdownButton from './components/dropdown-button.vue'
 // import ButtonGroup from './components/button-group.vue'
 // import ListItem from './components/list-item.vue'

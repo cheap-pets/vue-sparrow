@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="../dist/vue-sparrow-ui.css">
   <script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
   <script type="text/javascript" src="../dist/vue-sparrow-ui.js"></script>
+  <style>
+    .su-button:not(:empty):not([icon-only]) {
+      min-width: 120px;
+    }
+  </style>
   <title>Buttons</title>
 </head>
 
@@ -27,93 +32,93 @@
       </div>
       <h5>主要按钮 button-type="primary"</h5>
       <div>
-        <a class="su-button w-120" button-type="primary">PRIMARY</a>
-        <a class="su-button w-120" button-type="primary" button-style="text">TEXT</a>
-        <a class="su-button w-120" button-type="primary" button-style="link">LINK</a>
-        <a class="su-button w-120" button-type="primary" button-style="outline">OUTLINE</a>
-        <a class="su-button w-120" button-type="primary" active>ACTIVE</a>
-        <a class="su-button w-120" button-type="primary" disabled>DISABLED</a>
+        <su-button button-type="primary">PRIMARY</su-button>
+        <su-button button-type="primary" button-style="text">TEXT</su-button>
+        <su-button button-type="primary" button-style="link">LINK</su-button>
+        <su-button button-type="primary" button-style="outline">OUTLINE</su-button>
+        <su-button button-type="primary" active>ACTIVE</su-button>
+        <su-button button-type="primary" disabled>DISABLED</su-button>
       </div>
       <h5>提交按钮 button-type="submit"</h5>
       <div>
-        <a class="su-button w-120" button-type="submit">SUBMIT</a>
-        <a class="su-button w-120" button-type="submit" button-style="text">TEXT</a>
-        <a class="su-button w-120" button-type="submit" button-style="link">LINK</a>
-        <a class="su-button w-120" button-type="submit" button-style="outline">OUTLINE</a>
-        <a class="su-button w-120" button-type="submit" active>ACTIVE</a>
-        <a class="su-button w-120" button-type="submit" disabled>DISABLED</a>
+        <su-button button-type="submit">SUBMIT</su-button>
+        <su-button button-type="submit" button-style="text">TEXT</su-button>
+        <su-button button-type="submit" button-style="link">LINK</su-button>
+        <su-button button-type="submit" button-style="outline">OUTLINE</su-button>
+        <su-button button-type="submit" active>ACTIVE</su-button>
+        <su-button button-type="submit" disabled>DISABLED</su-button>
       </div>
       <h5>危险按钮 button-type="danger"</h5>
       <div>
-        <a class="su-button w-120" button-type="danger">DANGER</a>
-        <a class="su-button w-120" button-type="danger" button-style="text">TEXT</a>
-        <a class="su-button w-120" button-type="danger" button-style="link">LINK</a>
-        <a class="su-button w-120" button-type="danger" button-style="outline">OUTLINE</a>
-        <a class="su-button w-120" button-type="danger" active>ACTIVE</a>
-        <a class="su-button w-120" button-type="danger" disabled>DISABLED</a>
+        <su-button button-type="danger">DANGER</su-button>
+        <su-button button-type="danger" button-style="text">TEXT</su-button>
+        <su-button button-type="danger" button-style="link">LINK</su-button>
+        <su-button button-type="danger" button-style="outline">OUTLINE</su-button>
+        <su-button button-type="danger" active>ACTIVE</su-button>
+        <su-button button-type="danger" disabled>DISABLED</su-button>
       </div>
     </div>
     <div>
       <h3>按钮：形状</h3>
       <h5>圆边按钮</h5>
-      <button class="su-button w-120" button-type="primary" button-shape="round">PRIMARY</button>
-      <button class="su-button w-120" button-type="secondary" button-shape="round">SECONDARY</button>
-      <button class="su-button w-120" button-type="submit" button-shape="round">SUBMIT</button>
-      <button class="su-button icon icon-home" button-shape="round"></button>
-      <button class="su-button icon icon-trash-can" button-type="danger" button-shape="round"></button>
+      <su-button button-type="primary" button-shape="round">PRIMARY</su-button>
+      <su-button button-type="secondary" button-shape="round">SECONDARY</su-button>
+      <su-button button-type="submit" button-shape="round">SUBMIT</su-button>
+      <su-button class="icon icon-home" button-shape="round"></su-button>
+      <su-button class="icon icon-trash-can" button-type="danger" button-shape="round"></su-button>
     </div>
 
     <div>
       <h3>按钮：内容</h3>
-      <button class="su-button" button-type="primary">仅文字</button>
-      <button class="su-button icon icon-star" button-type="secondary" title="仅图标"></button>
-      <button class="su-button" title="仅图标">
+      <su-button button-type="primary">仅文字</su-button>
+      <su-button class="icon icon-star" button-type="secondary" title="仅图标"></su-button>
+      <su-button title="仅图标">
         <i class="icon icon-star-half"></i>
-      </button>
-      <button class="su-button" button-type="submit">
+      </su-button>
+      <su-button button-type="submit">
         <span>文字和图标</span><i class="icon icon-safe"></i>
-      </button>
-      <button class="su-button" button-type="danger">
+      </su-button>
+      <su-button button-type="danger">
         <i class="icon icon-home"></i>
         图标和文字
-      </button>
+      </su-button>
     </div>
     <div>
       <h3>按钮组</h3>
       <h5>普通按钮</h5>
       <div class="su-button-group">
-        <a class="su-button w-120">按钮一</a>
-        <a class="su-button w-120">按钮二</a>
-        <a class="su-button w-120">按钮三</a>
+        <su-button>按钮一</su-button>
+        <su-button>按钮二</su-button>
+        <su-button>按钮三</su-button>
       </div>
       <h5>主要按钮</h5>
       <div class="su-button-group">
-        <a class="su-button w-120" button-type="primary">按钮一</a>
-        <a class="su-button w-120" button-type="primary">按钮二</a>
-        <a class="su-button w-120" button-type="primary">按钮三</a>
+        <su-button button-type="primary">按钮一</su-button>
+        <su-button button-type="primary">按钮二</su-button>
+        <su-button button-type="primary">按钮三</su-button>
       </div>
       <h5>圆角样式</h5>
       <div class="su-button-group" button-shape="round">
-        <a class="su-button w-120" button-type="primary" button-style="outline">按钮一</a>
-        <a class="su-button w-120" button-type="primary" button-style="outline">按钮二</a>
-        <a class="su-button w-120" button-type="primary" button-style="outline">按钮三</a>
+        <su-button button-type="primary" button-style="outline">按钮一</su-button>
+        <su-button button-type="primary" button-style="outline">按钮二</su-button>
+        <su-button button-type="primary" button-style="outline">按钮三</su-button>
       </div>
       <h5>分裂按钮</h5>
       <div class="su-button-group">
-        <a class="su-button" button-type="primary">分裂按钮</a>
-        <a class="su-button" button-type="primary"></a>
+        <su-button button-type="primary">分裂按钮</su-button>
+        <su-button button-type="primary"></su-button>
       </div>
       <h5>均分充满</h5>
       <div class="su-button-group su-tab-box">
-        <a class="su-button" button-type="primary">按钮一</a>
-        <a class="su-button" button-type="primary">按钮二</a>
-        <a class="su-button" button-type="primary">按钮三</a>
+        <su-button button-type="primary">按钮一</su-button>
+        <su-button button-type="primary">按钮二</su-button>
+        <su-button button-type="primary">按钮三</su-button>
       </div>
       <p></p>
       <div class="su-button-group su-tab-box">
-        <a class="su-button" button-type="primary" button-style="text">按钮一</a>
-        <a class="su-button" button-type="primary" button-style="text">按钮二</a>
-        <a class="su-button" button-type="primary" button-style="text">按钮三</a>
+        <su-button button-type="primary" button-style="text">按钮一</su-button>
+        <su-button button-type="primary" button-style="text">按钮二</su-button>
+        <su-button button-type="primary" button-style="text">按钮三</su-button>
       </div>
     </div>
     <div>

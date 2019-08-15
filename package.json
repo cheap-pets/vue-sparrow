@@ -18,6 +18,7 @@
     "@ant-design/colors": "^3.1.0",
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "@vue/babel-plugin-transform-vue-jsx": "^1.0.0",
     "autoprefixer": "^9.6.1",
     "clean-css": "^4.2.1",
     "core-js": "^3.2.1",
