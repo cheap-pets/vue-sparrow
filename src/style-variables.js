@@ -12,7 +12,7 @@ const variables = {
   documentFontSizePx: 14,
 
   /* button */
-  buttonHeightPx: 32,
+  buttonHeightPx: 34,
   buttonLineHeightPx: 20,
   buttonBorderRadiusPx: 2,
   buttonFontSize: '1rem',
@@ -23,7 +23,7 @@ const variables = {
   buttonDefaultDisabledColor: grey[4],
 
   /* input */
-  inputHeightPx: 32,
+  inputHeightPx: 34,
   inputBorderRadiusPx: 2,
   inputFontSize: '1rem',
   inputBorderColor: grey[5],
@@ -43,7 +43,18 @@ const variables = {
   textQuarterLight: 'rgba(255, 255, 25, .175)',
 
   /* margin, padding */
-  marginUnitSize: 8
+  marginUnitSize: 8,
+
+  /* shadow */
+  // level 1: button
+  boxShadowLevel1: '0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12)',
+  // level 2: button:hover, dropdown
+  boxShadowLevel2: '0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16)',
+  // level 3: drawer, window, dialog
+  boxShadowLevel3: '0 6px 12px rgba(0, 0, 0, 0.23), 0 10px 40px rgba(0, 0, 0, 0.19)',
+  boxshadowLevel4: '0 10px 20px rgba(0, 0, 0, 0.22), 0 14px 56px rgba(0, 0, 0, 0.25)',
+  boxshadowLevel5: '0 15px 24px rgba(0, 0, 0, 0.22), 0 19px 76px rgba(0, 0, 0, 0.3)'
+
 }
 
 function setButtonColors (buttonType, colors) {

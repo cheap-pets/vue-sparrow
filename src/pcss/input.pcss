@@ -122,4 +122,14 @@ textarea.su-input {
       }
     }
   }
+
+  &[disabled],
+  &[readonly] {
+    & > .su-input {
+      padding: $(inputPaddingY)px 15px;
+    }
+    & > .su-input-icon {
+      display: none;
+    }
+  }
 }

@@ -16,8 +16,8 @@ html {
 .su-button {
   position: relative;
   display: inline-block;
-  height: 32px;
-  padding: 5px 15px;
+  height: 34px;
+  padding: 6px 15px;
   outline: 0;
   border: 1px solid #666;
   border-radius: 2px;
@@ -185,7 +185,7 @@ html {
 }
 .su-button:empty,
 .su-button[icon-only] {
-  width: 32px;
+  width: 34px;
   padding-left: 0;
   padding-right: 0;
 }
@@ -194,8 +194,8 @@ html {
   margin-left: 4px;
 }
 .su-button-group {
-  display: inline-block;
   position: relative;
+  display: inline-block;
   border-radius: 2px;
   box-shadow: 0 1.5px 4px rgba(0,0,0,.24),0 1.5px 6px rgba(0,0,0,.12);
 }
@@ -222,5 +222,5 @@ html {
 }
 [button-shape=round],
 [button-shape=round] > .su-button {
-  border-radius: 16px;
+  border-radius: 17px;
 }

@@ -1,6 +1,7 @@
 import './pcss/document.pcss'
 
 import Button from './components/button.jsx'
+import ButtonGroup from './components/button-group.vue'
 // import DropdownButton from './components/dropdown-button.vue'
 // import ButtonGroup from './components/button-group.vue'
 // import ListItem from './components/list-item.vue'
@@ -20,8 +21,8 @@ import Button from './components/button.jsx'
 
 function install (Vue) {
   Vue.component('su-button', Button)
+  Vue.component('su-button-group', ButtonGroup)
   // Vue.component('su-dropdown-button', DropdownButton)
-  // Vue.component('su-button-group', ButtonGroup)
   // Vue.component('su-list-item', ListItem)
   // Vue.component('su-list-header', ListHeader)
   // Vue.component('su-list', List)
@@ -42,5 +43,6 @@ if (typeof window !== 'undefined' && window.Vue) install(window.Vue)
 
 export {
   install,
-  Button
+  Button,
+  ButtonGroup
 }
