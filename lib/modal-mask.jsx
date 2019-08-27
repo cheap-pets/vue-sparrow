@@ -36,6 +36,10 @@ export default function install (Vue) {
             const { zIndex, transparent } = options
             if (transparent) this.transparent = transparent
             if (zIndex) this.zIndex = zIndex
+            if (this._delayShowTimer) {
+              clearTimeout(this._delayShowTimer)
+              delete this._delayShowTimer
+            }
             this._delayShowTimer = setTimeout(() => {
               this.visible = true
             }, 10)
