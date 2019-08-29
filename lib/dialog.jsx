@@ -167,7 +167,7 @@ export default function install (Vue) {
 
       return new Vue({
         components,
-        mixins: [ defaultMixin ],
+        mixins: [defaultMixin],
         ...options
       })
     }
@@ -176,7 +176,7 @@ export default function install (Vue) {
   Dialog._messageDialog = new Dialog({
     zIndex: 500,
     bodyComponent: {
-      props: [ 'params' ],
+      props: ['params'],
       render (h) {
         return (
           <div domPropsInnerHTML={`${Object(this.params).message}`} style="line-height: 24px;"></div>
@@ -184,6 +184,9 @@ export default function install (Vue) {
       }
     },
     primaryButton: '确定'
+  })
+  window.addEventListener('popstate', () => {
+    Dialog._messageDialog.hide()
   })
 
   Dialog.messageBox = function ({ title = '提示', message, buttons = '确定', primaryButton = '确定', danger, callback }) {
