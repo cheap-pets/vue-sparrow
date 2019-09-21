@@ -12,8 +12,8 @@
 
   export default {
     name: 'SuOption',
-    inject: [ '$comboBox' ],
-    props: [ 'fields', 'option', 'icon', 'label', 'value', 'disabled' ],
+    inject: ['$comboBox'],
+    props: ['fields', 'option', 'icon', 'label', 'value', 'disabled'],
     computed: {
       itemValue () {
         return isString(this.option) ? this.item : this.getFieldValue('value')

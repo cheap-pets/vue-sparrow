@@ -24,7 +24,10 @@
             :style="{ maxHeight: popupHeight }"
             :drawer-from="popupPosition">
             <slot>
-              <su-option v-for="(option, index) in options" :key="index" :option="option" />
+              <su-option
+                v-for="option in internalOptions"
+                :key="option.key"
+                :option="option.rawOption || option" />
             </slot>
           </div>
         </div>
@@ -34,7 +37,10 @@
           :dropdown-align="dropdownAlign"
           :dropdown-direction="popupPosition">
           <slot>
-            <su-option v-for="(option, index) in options" :key="index" :option="option" />
+            <su-option
+              v-for="option in internalOptions"
+              :key="option.key"
+              :option="option.rawOption || option" />
           </slot>
         </div>
       </template>
@@ -43,8 +49,9 @@
 </template>
 
 <script>
-  import { show, hide } from 'sparrow-popup'
   import isString from 'lodash.isstring'
+  import isPlainObject from 'lodash.isplainobject'
+  import { show, hide } from 'sparrow-popup'
 
   export default {
     name: 'SuComboBox',
@@ -119,6 +126,19 @@
       }
     },
     computed: {
+      internalOptions () {
+        return this.options
+          ? this.options.map(item => {
+            const { value, label } = Object(this.fields)
+            return isPlainObject(item)
+              ? {
+                rawOption: item,
+                key: (value ? item[value] : this.value) || (label ? item[label] : this.label)
+              }
+              : { key: item }
+          })
+          : undefined
+      },
       buttons () {
         return !this.clearable || this.readonly || !this.inputValue || this.toggleType === false
           ? undefined
