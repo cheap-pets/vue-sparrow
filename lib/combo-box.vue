@@ -25,9 +25,9 @@
             :drawer-from="popupPosition">
             <slot>
               <su-option
-                v-for="option in internalOptions"
-                :key="option.key"
-                :option="option.rawOption || option" />
+                v-for="option in options"
+                :key="Object(option)[valueField] || Object(option)[labelField] || option"
+                :option="option" />
             </slot>
           </div>
         </div>
@@ -38,9 +38,9 @@
           :dropdown-direction="popupPosition">
           <slot>
             <su-option
-              v-for="option in internalOptions"
-              :key="option.key"
-              :option="option.rawOption || option" />
+              v-for="option in options"
+              :key="Object(option)[valueField] || Object(option)[labelField] || option"
+              :option="option" />
           </slot>
         </div>
       </template>
@@ -126,18 +126,11 @@
       }
     },
     computed: {
-      internalOptions () {
-        return this.options
-          ? this.options.map(item => {
-            const { value, label } = Object(this.fields)
-            return isPlainObject(item)
-              ? {
-                rawOption: item,
-                key: (value ? item[value] : this.value) || (label ? item[label] : this.label)
-              }
-              : { key: item }
-          })
-          : undefined
+      valueField () {
+        return Object(this.fields).value || 'value'
+      },
+      labelField () {
+        return Object(this.fields).label || 'label'
       },
       buttons () {
         return !this.clearable || this.readonly || !this.inputValue || this.toggleType === false
